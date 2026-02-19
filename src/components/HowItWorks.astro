@@ -1,0 +1,257 @@
+---
+const steps = [
+  {
+    number: "01",
+    icon: "⌥",
+    title: "Connect your CI",
+    description:
+      "Add Hitch to your pipeline in two lines. Works with GitHub Actions, GitLab CI, Bitbucket Pipelines, and any CI that can run a shell step.",
+    code: "hitch/action@v1",
+  },
+  {
+    number: "02",
+    icon: "⚡",
+    title: "Hitch reads the diff",
+    description:
+      "On every release, Hitch analyses changed files, commit messages, and release metadata. No configuration needed — it figures out what changed and why.",
+    code: "v2.3.9 → v2.4.1",
+  },
+  {
+    number: "03",
+    icon: "◈",
+    title: "Guide published",
+    description:
+      "A complete, accurate guide appears in your docs site automatically. Versioned, searchable, and ready before your users notice the new feature.",
+    code: "docs.yourdomain.com",
+  },
+];
+---
+
+<section class="hiw" id="how-it-works">
+  <div class="hiw__inner">
+
+    <header class="hiw__header">
+      <p class="hiw__eyebrow">How it works</p>
+      <h2 class="hiw__heading">
+        Three steps.<br /><em>Zero manual effort.</em>
+      </h2>
+    </header>
+
+    <div class="hiw__grid" id="hiw-grid">
+      {steps.map((step, i) => (
+        <>
+          <div class="hiw__card">
+            <div class="hiw__card-number" aria-hidden="true">{step.number}</div>
+            <div class="hiw__card-icon" aria-hidden="true">{step.icon}</div>
+            <h3 class="hiw__card-title">{step.title}</h3>
+            <p class="hiw__card-desc">{step.description}</p>
+            <code class="hiw__card-code">{step.code}</code>
+          </div>
+          {i < steps.length - 1 && (
+            <div class="hiw__connector" aria-hidden="true">
+              <span class="hiw__connector-line"></span>
+              <span class="hiw__connector-arrow">›</span>
+            </div>
+          )}
+        </>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<script>
+  const section = document.getElementById('hiw-grid');
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-active');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.2 }
+  );
+
+  if (section) observer.observe(section);
+</script>
+
+<style>
+  .hiw {
+    padding: 7rem var(--gutter);
+    border-top: 1px solid var(--divider);
+  }
+
+  .hiw__inner {
+    max-width: var(--max-w);
+    margin: 0 auto;
+  }
+
+  .hiw__header {
+    margin-bottom: 4rem;
+  }
+
+  .hiw__eyebrow {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .hiw__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-3xl);
+    font-weight: 400;
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+  }
+
+  .hiw__heading em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  /* ---- Grid ---- */
+
+  .hiw__grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr;
+    gap: 0;
+    align-items: start;
+  }
+
+  /* ---- Card ---- */
+
+  .hiw__card {
+    background: var(--surface);
+    border: 1px solid var(--divider);
+    border-radius: 8px;
+    padding: 2.25rem 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s var(--ease-out);
+  }
+
+  .hiw__grid.is-active .hiw__card {
+    border-color: rgba(200, 255, 0, 0.15);
+  }
+
+  .hiw__card-number {
+    font-family: var(--font-mono);
+    font-size: var(--text-stat);
+    font-weight: 700;
+    color: var(--divider);
+    line-height: 1;
+    margin-bottom: 1.25rem;
+    user-select: none;
+    letter-spacing: -0.04em;
+  }
+
+  .hiw__card-icon {
+    font-size: var(--text-2xl);
+    margin-bottom: 1rem;
+    line-height: 1;
+  }
+
+  .hiw__card-title {
+    font-family: var(--font-display);
+    font-size: var(--text-xl);
+    font-weight: 400;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.01em;
+  }
+
+  .hiw__card-desc {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+
+  .hiw__card-code {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--accent);
+    background: rgba(200, 255, 0, 0.08);
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    border: 1px solid rgba(200, 255, 0, 0.2);
+  }
+
+  /* ---- Connector ---- */
+
+  .hiw__connector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 1.5rem;
+    padding-top: calc(2.25rem + var(--text-stat) + 1.25rem + var(--text-2xl) + 1rem); /* align with card icon area */
+    gap: 0.25rem;
+    min-width: 60px;
+  }
+
+  .hiw__connector-line {
+    display: block;
+    height: 1px;
+    width: 0;
+    background: var(--accent);
+    transition: width 0.6s var(--ease-out) 0.3s;
+  }
+
+  .hiw__grid.is-active .hiw__connector-line {
+    width: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hiw__connector-line {
+      width: 100%;
+      transition: none;
+    }
+
+    .hiw__grid.is-active .hiw__card {
+      border-color: rgba(200, 255, 0, 0.15);
+    }
+  }
+
+  .hiw__connector-arrow {
+    font-size: 1.25rem;
+    color: var(--accent);
+    line-height: 1;
+    margin-top: 0.15rem;
+  }
+
+  /* ---- Responsive ---- */
+
+  @media (max-width: 900px) {
+    .hiw__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .hiw__connector {
+      flex-direction: row;
+      padding: 0.5rem 2rem;
+      min-width: auto;
+      justify-content: flex-start;
+    }
+
+    .hiw__connector-line {
+      flex: 1;
+      height: 1px;
+      width: auto;
+    }
+
+    .hiw__grid.is-active .hiw__connector-line {
+      width: auto;
+    }
+
+    .hiw__connector-arrow {
+      transform: rotate(90deg);
+    }
+  }
+</style>

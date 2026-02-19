@@ -1,0 +1,316 @@
+---
+const rows = [
+  { label: "Time per guide",      manual: "3–4 hours",    hitch: "< 5 minutes" },
+  { label: "Releases per week",   manual: "1×",           hitch: "Unlimited"   },
+  { label: "Hours / month",       manual: "16 hrs",       hitch: "0 hrs"       },
+  { label: "Accuracy",            manual: "Manual",       hitch: "AI-verified" },
+  { label: "Cost per guide",      manual: "$350+",        hitch: "$0.50"       },
+];
+---
+
+<section class="roi">
+  <div class="roi__inner">
+
+    <header class="roi__header">
+      <p class="roi__eyebrow">Return on investment</p>
+      <h2 class="roi__heading">
+        A guide takes 3–4 hours to write.<br />
+        <em>By hand.</em>
+      </h2>
+      <p class="roi__sub">
+        A team shipping weekly wastes
+        <strong>
+          <span class="roi__counter" id="roi-counter" data-target="208">0</span>&nbsp;hrs/year
+        </strong>
+        on documentation that's outdated before it's published.
+      </p>
+    </header>
+
+    <div class="roi__grid">
+
+      <!-- Manual column -->
+      <div class="roi__col roi__col--manual">
+        <div class="roi__col-header">
+          <span class="roi__col-label">Manual</span>
+        </div>
+        {rows.map(row => (
+          <div class="roi__row">
+            <span class="roi__row-label">{row.label}</span>
+            <span class="roi__val roi__val--bad">{row.manual}</span>
+          </div>
+        ))}
+      </div>
+
+      <!-- VS divider -->
+      <div class="roi__vs" aria-hidden="true">vs</div>
+
+      <!-- With Hitch column -->
+      <div class="roi__col roi__col--hitch">
+        <div class="roi__col-header">
+          <span class="roi__col-label">With Hitch</span>
+          <span class="roi__col-dot" aria-hidden="true"></span>
+        </div>
+        {rows.map(row => (
+          <div class="roi__row">
+            <span class="roi__row-label">{row.label}</span>
+            <span class="roi__val roi__val--good">{row.hitch}</span>
+          </div>
+        ))}
+      </div>
+
+    </div>
+
+    <p class="roi__footnote">
+      * Based on 1 guide/release at senior engineer rate ($87.50/hr)
+    </p>
+
+  </div>
+</section>
+
+<script>
+  function easeOutQuad(t: number): number {
+    return t * (2 - t);
+  }
+
+  function animateCounter(el: HTMLElement, target: number, duration: number): void {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
+      el.textContent = target.toString();
+      return;
+    }
+
+    const start = performance.now();
+
+    function step(now: number): void {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = easeOutQuad(progress);
+      el.textContent = Math.round(eased * target).toString();
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      }
+    }
+
+    requestAnimationFrame(step);
+  }
+
+  const counterEl = document.getElementById('roi-counter');
+  if (counterEl) {
+    const target = parseInt(counterEl.dataset.target ?? '0', 10);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            animateCounter(counterEl, target, 1800);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    observer.observe(counterEl);
+  }
+</script>
+
+<style>
+  .roi {
+    padding: 7rem var(--gutter);
+    border-top: 1px solid var(--divider);
+    background: var(--surface);
+  }
+
+  .roi__inner {
+    max-width: var(--max-w);
+    margin: 0 auto;
+  }
+
+  /* ---- Header ---- */
+
+  .roi__header {
+    margin-bottom: 4rem;
+  }
+
+  .roi__eyebrow {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .roi__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-3xl);
+    font-weight: 400;
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.25rem;
+  }
+
+  .roi__heading em {
+    font-style: italic;
+    color: var(--text-muted);
+  }
+
+  .roi__sub {
+    font-size: var(--text-lg);
+    color: var(--text-muted);
+    max-width: 52ch;
+    line-height: 1.65;
+  }
+
+  .roi__sub strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .roi__counter {
+    font-family: var(--font-mono);
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    color: var(--accent);
+    display: inline-block;
+    min-width: 3ch;
+    text-align: right;
+  }
+
+  /* ---- Grid ---- */
+
+  .roi__grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 0;
+    border: 1px solid var(--divider);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 2rem;
+  }
+
+  .roi__col {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .roi__col-header {
+    padding: 1.25rem 1.75rem;
+    border-bottom: 1px solid var(--divider);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .roi__col-label {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .roi__col--manual .roi__col-label {
+    color: var(--text-muted);
+  }
+
+  .roi__col--hitch .roi__col-label {
+    color: var(--accent);
+  }
+
+  .roi__col-dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .roi__col-dot {
+      animation: none;
+    }
+  }
+
+  .roi__row {
+    padding: 1.1rem 1.75rem;
+    border-bottom: 1px solid var(--divider);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .roi__row:last-child {
+    border-bottom: none;
+  }
+
+  .roi__row-label {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+
+  .roi__val {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .roi__val--bad {
+    color: #ff5f57;
+  }
+
+  .roi__val--good {
+    color: var(--accent);
+  }
+
+  /* ---- VS divider ---- */
+
+  .roi__vs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    font-family: var(--font-mono);
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--divider);
+    border-left: 1px solid var(--divider);
+    border-right: 1px solid var(--divider);
+    user-select: none;
+  }
+
+  /* ---- Footnote ---- */
+
+  .roi__footnote {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    opacity: 0.6;
+  }
+
+  /* ---- Responsive ---- */
+
+  @media (max-width: 680px) {
+    .roi__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .roi__vs {
+      width: auto;
+      height: 48px;
+      border-left: none;
+      border-right: none;
+      border-top: 1px solid var(--divider);
+      border-bottom: 1px solid var(--divider);
+    }
+
+    .roi__row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.25rem;
+    }
+  }
+</style>
