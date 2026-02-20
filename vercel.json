@@ -1,0 +1,16 @@
+{
+  "rewrites": [
+    {
+      "source": "/service/p/static/:path(.*)",
+      "destination": "https://us-assets.i.posthog.com/static/:path"
+    },
+    {
+      "source": "/service/p/:path(.*)",
+      "destination": "https://us.i.posthog.com/:path"
+    },
+    {
+      "source": "/service/v/:match*",
+      "destination": "https://hitch42.com/_vercel/:match*"
+    }
+  ]
+}

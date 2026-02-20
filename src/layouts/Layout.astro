@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import Analytics from "@vercel/analytics/astro";
+import PostHog from "../components/posthog.astro";
 
 interface Props {
     title?: string;
@@ -49,7 +50,11 @@ const {
             href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=JetBrains+Mono:wght@400;500;700&display=block"
             rel="stylesheet"
         />
-        <Analytics />
+        <PostHog />
+        <Analytics
+            scriptSrc="/service/v/insights/script.js"
+            endpoint="/service/v/insights"
+        />
         <!-- Reddit Pixel -->
         <script>
             !(function (w, d) {
