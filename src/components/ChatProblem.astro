@@ -1,179 +1,182 @@
 ---
 const problems = [
-  "Every notification feels urgent. Almost none of it is.",
-  "Decisions get made in threads and vanish. No one can find what was agreed.",
-  "Conversations are linear. Work never is.",
-  "Your tool knows everything everyone said. Not what needs to happen next.",
+    "Every notification feels urgent. Almost none of it is.",
+    "Decisions get made in channels and vanish. No one can find what was agreed.",
+    "Conversations are linear. Work never is.",
+    "Your tool knows everything everyone said. Not what needs to happen next.",
 ];
 ---
 
 <section class="chat-problem">
-  <div class="chat-problem__inner">
+    <div class="chat-problem__inner">
+        <div class="chat-problem__label-col" aria-hidden="true">
+            <span class="chat-problem__label">The problem</span>
+        </div>
 
-    <div class="chat-problem__label-col" aria-hidden="true">
-      <span class="chat-problem__label">The problem</span>
+        <div class="chat-problem__content">
+            <h2 class="chat-problem__heading">
+                Chat accumulates everything.<br />
+                <em>Nothing actually sticks.</em>
+            </h2>
+
+            <ul class="chat-problem__list" id="chat-problem-list">
+                {
+                    problems.map((text) => (
+                        <li class="chat-problem__item">
+                            <span
+                                class="chat-problem__item-line"
+                                aria-hidden="true"
+                            />
+                            <p>{text}</p>
+                        </li>
+                    ))
+                }
+            </ul>
+        </div>
     </div>
-
-    <div class="chat-problem__content">
-      <h2 class="chat-problem__heading">
-        Chat accumulates everything.<br />
-        <em>Nothing actually sticks.</em>
-      </h2>
-
-      <ul class="chat-problem__list" id="chat-problem-list">
-        {problems.map((text) => (
-          <li class="chat-problem__item">
-            <span class="chat-problem__item-line" aria-hidden="true"></span>
-            <p>{text}</p>
-          </li>
-        ))}
-      </ul>
-    </div>
-
-  </div>
 </section>
 
 <script>
-  const items = document.querySelectorAll<HTMLElement>('.chat-problem__item');
+    const items = document.querySelectorAll<HTMLElement>(".chat-problem__item");
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-active');
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.25 }
-  );
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("is-active");
+                    observer.unobserve(entry.target);
+                }
+            });
+        },
+        { threshold: 0.25 },
+    );
 
-  items.forEach((item) => observer.observe(item));
+    items.forEach((item) => observer.observe(item));
 </script>
 
 <style>
-  .chat-problem {
-    padding: 7rem var(--gutter);
-    border-top: 1px solid var(--divider);
-  }
-
-  .chat-problem__inner {
-    max-width: var(--max-w);
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 180px 1fr;
-    gap: 4rem;
-    align-items: start;
-  }
-
-  .chat-problem__label-col {
-    padding-top: 0.5rem;
-  }
-
-  .chat-problem__label {
-    display: block;
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    color: var(--text-muted);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    writing-mode: vertical-lr;
-    transform: rotate(180deg);
-  }
-
-  .chat-problem__heading {
-    font-family: var(--font-display);
-    font-size: var(--text-3xl);
-    font-weight: 400;
-    line-height: 1.12;
-    letter-spacing: -0.02em;
-    margin-bottom: 3.5rem;
-    max-width: 20ch;
-  }
-
-  .chat-problem__heading em {
-    font-style: italic;
-    color: var(--text-muted);
-  }
-
-  .chat-problem__list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
-
-  .chat-problem__item {
-    display: flex;
-    align-items: stretch;
-    gap: 1.75rem;
-    padding: 1.75rem 0;
-    border-bottom: 1px solid var(--divider);
-    position: relative;
-  }
-
-  .chat-problem__item:first-child {
-    border-top: 1px solid var(--divider);
-  }
-
-  .chat-problem__item-line {
-    flex-shrink: 0;
-    width: 2px;
-    background: var(--divider);
-    border-radius: 2px;
-    position: relative;
-    overflow: hidden;
-    transition: none;
-  }
-
-  .chat-problem__item-line::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: var(--accent);
-    transform-origin: top center;
-    transform: scaleY(0);
-    transition: transform 0.5s var(--ease-out);
-  }
-
-  .chat-problem__item.is-active .chat-problem__item-line::after {
-    transform: scaleY(1);
-  }
-
-  .chat-problem__item p {
-    font-size: var(--text-lg);
-    color: var(--text-muted);
-    line-height: 1.6;
-    padding: 0.15rem 0;
-    transition: color 0.4s var(--ease-out);
-  }
-
-  .chat-problem__item.is-active p {
-    color: var(--text);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .chat-problem__item-line::after {
-      transition: none;
+    .chat-problem {
+        padding: 7rem var(--gutter);
+        border-top: 1px solid var(--divider);
     }
 
-    .chat-problem__item p {
-      transition: none;
-    }
-
-    .chat-problem__item.is-active .chat-problem__item-line::after {
-      transform: scaleY(1);
-    }
-  }
-
-  @media (max-width: 760px) {
     .chat-problem__inner {
-      grid-template-columns: 1fr;
-      gap: 2rem;
+        max-width: var(--max-w);
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 180px 1fr;
+        gap: 4rem;
+        align-items: start;
     }
 
     .chat-problem__label-col {
-      display: none;
+        padding-top: 0.5rem;
     }
-  }
+
+    .chat-problem__label {
+        display: block;
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
+        color: var(--text-muted);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        writing-mode: vertical-lr;
+        transform: rotate(180deg);
+    }
+
+    .chat-problem__heading {
+        font-family: var(--font-display);
+        font-size: var(--text-3xl);
+        font-weight: 400;
+        line-height: 1.12;
+        letter-spacing: -0.02em;
+        margin-bottom: 3.5rem;
+        max-width: 20ch;
+    }
+
+    .chat-problem__heading em {
+        font-style: italic;
+        color: var(--text-muted);
+    }
+
+    .chat-problem__list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .chat-problem__item {
+        display: flex;
+        align-items: stretch;
+        gap: 1.75rem;
+        padding: 1.75rem 0;
+        border-bottom: 1px solid var(--divider);
+        position: relative;
+    }
+
+    .chat-problem__item:first-child {
+        border-top: 1px solid var(--divider);
+    }
+
+    .chat-problem__item-line {
+        flex-shrink: 0;
+        width: 2px;
+        background: var(--divider);
+        border-radius: 2px;
+        position: relative;
+        overflow: hidden;
+        transition: none;
+    }
+
+    .chat-problem__item-line::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: var(--accent);
+        transform-origin: top center;
+        transform: scaleY(0);
+        transition: transform 0.5s var(--ease-out);
+    }
+
+    .chat-problem__item.is-active .chat-problem__item-line::after {
+        transform: scaleY(1);
+    }
+
+    .chat-problem__item p {
+        font-size: var(--text-lg);
+        color: var(--text-muted);
+        line-height: 1.6;
+        padding: 0.15rem 0;
+        transition: color 0.4s var(--ease-out);
+    }
+
+    .chat-problem__item.is-active p {
+        color: var(--text);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .chat-problem__item-line::after {
+            transition: none;
+        }
+
+        .chat-problem__item p {
+            transition: none;
+        }
+
+        .chat-problem__item.is-active .chat-problem__item-line::after {
+            transform: scaleY(1);
+        }
+    }
+
+    @media (max-width: 760px) {
+        .chat-problem__inner {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .chat-problem__label-col {
+            display: none;
+        }
+    }
 </style>

@@ -76,7 +76,7 @@
                                 >Notification overload</option
                             >
                             <option value="decisions-buried"
-                                >Decisions buried in threads</option
+                                >Decisions buried in channels</option
                             >
                             <option value="cant-find-context"
                                 >Can't find old context</option
@@ -191,7 +191,7 @@
 </div>
 
 <script>
-    import { actions } from 'astro:actions';
+    import { actions } from "astro:actions";
 
     const overlay = document.getElementById("wl-overlay")!;
     const closeBtn = document.getElementById("wl-close")!;
@@ -199,9 +199,13 @@
     const formWrap = document.getElementById("wl-form-wrap")!;
     const successEl = document.getElementById("wl-success")!;
     const emailInput = document.getElementById("wl-email") as HTMLInputElement;
-    const selectEl = document.getElementById("wl-frustration") as HTMLSelectElement;
+    const selectEl = document.getElementById(
+        "wl-frustration",
+    ) as HTMLSelectElement;
     const otherWrap = document.getElementById("wl-other-wrap")!;
-    const otherInput = document.getElementById("wl-frustration-other") as HTMLInputElement;
+    const otherInput = document.getElementById(
+        "wl-frustration-other",
+    ) as HTMLInputElement;
     const radioError = document.getElementById("wl-radio-error")!;
 
     // ── Open / Close ──────────────────────────────────────────────
@@ -234,7 +238,8 @@
     });
 
     document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && overlay.classList.contains("is-open")) closeModal();
+        if (e.key === "Escape" && overlay.classList.contains("is-open"))
+            closeModal();
     });
 
     // ── "Other…" reveal ──────────────────────────────────────────
@@ -257,7 +262,9 @@
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
 
-        const checkedRadio = form.querySelector<HTMLInputElement>('input[name="intent"]:checked');
+        const checkedRadio = form.querySelector<HTMLInputElement>(
+            'input[name="intent"]:checked',
+        );
         if (!checkedRadio) {
             radioError.classList.add("is-visible");
             form.querySelector<HTMLElement>(".wl-chips")?.focus();
@@ -276,7 +283,8 @@
             submitBtn.textContent = "Submitting…";
         }
 
-        const frustration_other = selectEl.value === "other" ? otherInput.value : undefined;
+        const frustration_other =
+            selectEl.value === "other" ? otherInput.value : undefined;
 
         const { error } = await actions.submitChatWaitlist({
             email: emailInput.value,
@@ -301,7 +309,9 @@
         successEl.hidden = false;
         successEl.classList.add("is-visible");
         if (emailInput.value) {
-            (window as any).rdt?.("init", "a2_ijiwg4haitrc", { email: emailInput.value });
+            (window as any).rdt?.("init", "a2_ijiwg4haitrc", {
+                email: emailInput.value,
+            });
             (window as any).rdt?.("track", "Custom", {
                 customEventName: "Join the Waitlist",
                 conversionId: crypto.randomUUID(),
