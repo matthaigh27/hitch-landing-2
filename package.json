@@ -11,6 +11,7 @@
     "remotion:render": "remotion render remotion/index.ts UiReasoningJourney dist/ui-reasoning-journey.mp4"
   },
   "dependencies": {
+    "@astrojs/vercel": "^9.0.4",
     "@vercel/analytics": "^1.6.1",
     "astro": "^5.17.1"
   },
