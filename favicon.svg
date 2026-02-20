@@ -1,0 +1,37 @@
+<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    :root {
+      --line1: #595959;
+      --line2: #666666;
+      --line3: #737373;
+      --dot: #262626;
+      --glow-color: rgba(0, 0, 0, 0.3);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --line1: #fafafa;
+        --line2: #e0e0e0;
+        --line3: #c7c7c7;
+        --dot: #ffffff;
+        --glow-color: rgba(255, 255, 255, 0.55);
+      }
+    }
+  </style>
+  <defs>
+    <filter id="glow-light" x="-100%" y="-100%" width="300%" height="300%">
+      <feDropShadow dx="0" dy="0" stdDeviation="2" flood-color="#000000" flood-opacity="0.3" />
+    </filter>
+    <filter id="glow-dark" x="-100%" y="-100%" width="300%" height="300%">
+      <feDropShadow dx="0" dy="0" stdDeviation="2" flood-color="#ffffff" flood-opacity="0.55" />
+    </filter>
+  </defs>
+  <line x1="2" y1="7" x2="17" y2="10" stroke="var(--line1)" stroke-width="3" stroke-linecap="round" />
+  <line x1="2" y1="14" x2="17" y2="14" stroke="var(--line2)" stroke-width="3" stroke-linecap="round" />
+  <line x1="2" y1="21" x2="17" y2="18" stroke="var(--line3)" stroke-width="3" stroke-linecap="round" />
+  <circle cx="20" cy="14" r="5" fill="var(--dot)" style="filter: url(#glow-light)" />
+  <style>
+    @media (prefers-color-scheme: dark) {
+      circle { filter: url(#glow-dark) !important; }
+    }
+  </style>
+</svg>

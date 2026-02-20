@@ -1,469 +1,389 @@
 ---
+
 ---
 
 <section class="hero">
-  <div class="hero__inner">
-
-    <!-- Copy column -->
-    <div class="hero__copy">
-      <p class="hero__eyebrow">
-        <span class="eyebrow-dot" aria-hidden="true"></span>
-        CI/CD-native · AI-generated · Always current
-      </p>
-      <h1 class="hero__headline">
-        Your product ships<br />in seconds.<br />
-        <em>Your docs take weeks.</em>
-      </h1>
-      <p class="hero__sub">
-        Hitch watches your releases, reads your diff, and publishes a complete,
-        accurate guide — automatically. No templates, no tickets, no engineers
-        interrupted.
-      </p>
-      <div class="hero__actions">
-        <a href="#waitlist" class="btn btn--primary">Join the Waitlist</a>
-        <a href="#demo" class="btn btn--ghost">See an Example Guide →</a>
-      </div>
-    </div>
-
-    <!-- Terminal widget column -->
-    <div class="hero__terminal-wrap">
-      <div class="terminal" id="hero-terminal" aria-label="Live demo of Hitch CLI" role="img">
-        <div class="terminal__bar" aria-hidden="true">
-          <span class="terminal__dot terminal__dot--red"></span>
-          <span class="terminal__dot terminal__dot--yellow"></span>
-          <span class="terminal__dot terminal__dot--green"></span>
-          <span class="terminal__bar-title">hitch — bash</span>
-        </div>
-        <div class="terminal__body" aria-hidden="true">
-          <div class="terminal__prompt">
-            <span class="terminal__prompt-prefix">$&nbsp;</span>
-            <span class="terminal__typewriter" id="typewriter-text"></span>
-            <span class="terminal__cursor" id="typewriter-cursor">▋</span>
-          </div>
-          <div class="terminal__output" id="terminal-output"></div>
-          <div class="terminal__progress-wrap" id="terminal-progress-wrap" style="display:none">
-            <span class="terminal__progress-label">Publishing guide</span>
-            <div class="terminal__progress-track">
-              <div class="terminal__progress-fill" id="terminal-progress-fill"></div>
+    <div class="hero__inner">
+        <div class="hero__copy">
+            <p class="hero__eyebrow">
+                <span class="eyebrow-dot" aria-hidden="true"></span>
+                Automated · Instant setup · Self-healing
+            </p>
+            <h1 class="hero__headline">
+                Your product ships<br />in seconds.<br />
+                <em>Your guides take weeks.</em>
+            </h1>
+            <p class="hero__sub">
+                Hitch's agents use your product like your users and create
+                guides, videos, and tutorials. Automatically.
+            </p>
+            <div class="hero__actions">
+                <button type="button" class="btn btn--primary" data-open-waitlist
+                    >Join the Waitlist</button
+                >
+                <!-- <a href="#demo" class="btn btn--ghost">See an Example Guide →</a
+                > -->
             </div>
-            <span class="terminal__progress-pct" id="terminal-progress-pct">0%</span>
-          </div>
-          <div class="terminal__success" id="terminal-success" style="display:none">
-            ✓ guide published → <span class="terminal__link">docs.yourdomain.com/v2.4.1</span>
-          </div>
+            <!-- <p class="hero__no-ci">
+                No CI/CD required · GitHub, GitLab & Linear supported
+            </p> -->
         </div>
-      </div>
-    </div>
 
-  </div>
+        <!-- Deployment mode cards column -->
+        <div class="hero__card-wrap">
+            <div class="deploy-cards">
+                <!-- Card 1: Point & Prompt -->
+                <div
+                    class="deploy-card deploy-card--featured"
+                    aria-label="Point and Prompt deployment mode"
+                >
+                    <div class="deploy-card__top">
+                        <span
+                            class="deploy-card__badge deploy-card__badge--accent"
+                            >Zero setup</span
+                        >
+                    </div>
+                    <h3 class="deploy-card__title">Point &amp; Prompt</h3>
+                    <p class="deploy-card__desc">
+                        Give Hitch a URL. Agents explore your product like real
+                        users and ship guides instantly.
+                    </p>
+                    <ul class="deploy-card__traits" aria-label="Features">
+                        <li>
+                            <span class="trait-diamond" aria-hidden="true"
+                                >◆</span
+                            >No codebase access
+                        </li>
+                        <li>
+                            <span class="trait-diamond" aria-hidden="true"
+                                >◆</span
+                            >Start in minutes
+                        </li>
+                        <li>
+                            <span class="trait-diamond" aria-hidden="true"
+                                >◆</span
+                            >Maximum security
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Card 2: Release-Aware -->
+                <div
+                    class="deploy-card"
+                    aria-label="Release-Aware deployment mode"
+                >
+                    <div class="deploy-card__top">
+                        <span class="deploy-card__badge">Pipeline</span>
+                    </div>
+                    <h3 class="deploy-card__title">Release-Aware</h3>
+                    <p class="deploy-card__desc">
+                        Connect to your CI/CD. Guides auto-generate and
+                        self-heal on every release.
+                    </p>
+                    <ul class="deploy-card__traits" aria-label="Features">
+                        <li>
+                            <span class="trait-diamond" aria-hidden="true"
+                                >◆</span
+                            >GitHub, GitLab &amp; Linear
+                        </li>
+                        <li>
+                            <span class="trait-diamond" aria-hidden="true"
+                                >◆</span
+                            >Auto-generates on release
+                        </li>
+                        <li>
+                            <span class="trait-diamond" aria-hidden="true"
+                                >◆</span
+                            >Self-healing docs
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 
-<script>
-  const TYPEWRITER_CMD = 'hitch run --release v2.4.1';
-  const LOG_LINES = [
-    '  → fetching release diff (v2.3.9 → v2.4.1)...',
-    '  → analysing 14 changed files...',
-    '  → generating documentation with AI...',
-    '  → running consistency checks...',
-  ];
-
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  function sleep(ms: number): Promise<void> {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
-
-  async function runTerminalSequence(): Promise<void> {
-    const typewriterEl = document.getElementById('typewriter-text');
-    const cursorEl = document.getElementById('typewriter-cursor');
-    const outputEl = document.getElementById('terminal-output');
-    const progressWrap = document.getElementById('terminal-progress-wrap');
-    const progressFill = document.getElementById('terminal-progress-fill');
-    const progressPct = document.getElementById('terminal-progress-pct');
-    const successEl = document.getElementById('terminal-success');
-
-    if (!typewriterEl || !outputEl || !progressWrap || !progressFill || !successEl) return;
-
-    // --- Reset state ---
-    typewriterEl.textContent = '';
-    outputEl.innerHTML = '';
-    progressWrap.style.display = 'none';
-    progressFill.style.width = '0%';
-    if (progressPct) progressPct.textContent = '0%';
-    successEl.style.display = 'none';
-    successEl.classList.remove('is-visible');
-    if (cursorEl) cursorEl.style.display = 'inline';
-
-    if (prefersReducedMotion) {
-      // Show final state immediately
-      typewriterEl.textContent = TYPEWRITER_CMD;
-      if (cursorEl) cursorEl.style.display = 'none';
-      for (const line of LOG_LINES) {
-        const div = document.createElement('div');
-        div.className = 'terminal__log-line is-visible';
-        div.textContent = line;
-        outputEl.appendChild(div);
-      }
-      successEl.style.display = 'block';
-      successEl.classList.add('is-visible');
-      return; // no loop
-    }
-
-    // --- Typewriter ---
-    for (let i = 0; i <= TYPEWRITER_CMD.length; i++) {
-      typewriterEl.textContent = TYPEWRITER_CMD.slice(0, i);
-      await sleep(55);
-    }
-    await sleep(400);
-    if (cursorEl) cursorEl.style.display = 'none';
-
-    // --- Log lines ---
-    for (const line of LOG_LINES) {
-      await sleep(350);
-      const div = document.createElement('div');
-      div.className = 'terminal__log-line';
-      div.textContent = line;
-      outputEl.appendChild(div);
-      // Trigger CSS transition on next paint
-      requestAnimationFrame(() => requestAnimationFrame(() => div.classList.add('is-visible')));
-    }
-
-    // --- Progress bar ---
-    await sleep(500);
-    progressWrap.style.display = 'flex';
-
-    await new Promise<void>(resolve => {
-      let width = 0;
-      const interval = setInterval(() => {
-        width += Math.random() * 2.5 + 0.8;
-        const clamped = Math.min(width, 100);
-        progressFill.style.width = clamped + '%';
-        if (progressPct) progressPct.textContent = Math.round(clamped) + '%';
-        if (clamped >= 100) {
-          clearInterval(interval);
-          resolve();
-        }
-      }, 55);
-    });
-
-    // --- Success ---
-    await sleep(400);
-    successEl.style.display = 'block';
-    requestAnimationFrame(() => requestAnimationFrame(() => successEl.classList.add('is-visible')));
-
-    // --- Loop after 12s idle ---
-    await sleep(12000);
-    successEl.classList.remove('is-visible');
-    await sleep(500);
-    runTerminalSequence();
-  }
-
-  document.addEventListener('DOMContentLoaded', () => {
-    setTimeout(runTerminalSequence, 600);
-  });
-</script>
-
 <style>
-  .hero {
-    min-height: 100svh;
-    display: flex;
-    align-items: center;
-    padding: calc(80px + 4rem) var(--gutter) 5rem;
-  }
-
-  .hero__inner {
-    max-width: var(--max-w);
-    margin: 0 auto;
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5rem;
-    align-items: center;
-  }
-
-  /* ---- Copy column ---- */
-
-  .hero__eyebrow {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    color: var(--accent);
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    margin-bottom: 1.75rem;
-  }
-
-  .eyebrow-dot {
-    display: inline-block;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--accent);
-    flex-shrink: 0;
-    animation: pulse-dot 2s ease-in-out infinite;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .eyebrow-dot {
-      animation: none;
-    }
-  }
-
-  .hero__headline {
-    font-family: var(--font-display);
-    font-size: var(--text-hero);
-    line-height: 1.05;
-    font-weight: 400;
-    color: var(--text);
-    margin-bottom: 1.75rem;
-    letter-spacing: -0.02em;
-  }
-
-  .hero__headline em {
-    font-style: italic;
-    color: var(--text-muted);
-  }
-
-  .hero__sub {
-    font-size: var(--text-lg);
-    color: var(--text-muted);
-    max-width: 44ch;
-    margin-bottom: 2.5rem;
-    line-height: 1.7;
-  }
-
-  .hero__actions {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    align-items: center;
-  }
-
-  .btn {
-    font-family: var(--font-mono);
-    font-size: var(--text-sm);
-    font-weight: 500;
-    letter-spacing: 0.04em;
-    padding: 0.8rem 1.75rem;
-    border-radius: 999px;
-    transition: transform 0.15s, background 0.2s, border-color 0.2s, color 0.2s;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    white-space: nowrap;
-  }
-
-  .btn--primary {
-    background: var(--accent);
-    color: var(--bg);
-    border: 1px solid var(--accent);
-  }
-
-  .btn--primary:hover {
-    background: var(--accent-dim);
-    border-color: var(--accent-dim);
-    transform: translateY(-1px);
-  }
-
-  .btn--primary:active {
-    transform: translateY(0);
-  }
-
-  .btn--ghost {
-    border: 1px solid var(--divider);
-    color: var(--text);
-  }
-
-  .btn--ghost:hover {
-    border-color: var(--text-muted);
-    transform: translateY(-1px);
-  }
-
-  .btn--ghost:active {
-    transform: translateY(0);
-  }
-
-  /* ---- Terminal widget ---- */
-
-  .hero__terminal-wrap {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-  }
-
-  .terminal {
-    width: 100%;
-    max-width: 520px;
-    background: var(--surface);
-    border: 1px solid var(--divider);
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow:
-      0 32px 80px rgba(0, 0, 0, 0.55),
-      0 0 0 1px rgba(255, 255, 255, 0.04);
-  }
-
-  .terminal__bar {
-    background: #1c1c1c;
-    padding: 0.75rem 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.45rem;
-    border-bottom: 1px solid var(--divider);
-    position: relative;
-  }
-
-  .terminal__dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-
-  .terminal__dot--red    { background: #ff5f57; }
-  .terminal__dot--yellow { background: #febc2e; }
-  .terminal__dot--green  { background: #28c840; }
-
-  .terminal__bar-title {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    color: var(--text-muted);
-  }
-
-  .terminal__body {
-    padding: 1.5rem;
-    min-height: 240px;
-    font-family: var(--font-mono);
-    font-size: var(--text-sm);
-    line-height: 1.7;
-  }
-
-  .terminal__prompt {
-    display: flex;
-    align-items: baseline;
-    color: var(--text);
-    margin-bottom: 0.75rem;
-  }
-
-  .terminal__prompt-prefix {
-    color: var(--accent);
-    flex-shrink: 0;
-  }
-
-  .terminal__typewriter {
-    color: var(--text);
-  }
-
-  .terminal__cursor {
-    color: var(--accent);
-    animation: blink 1s step-end infinite;
-  }
-
-  @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50%       { opacity: 0; }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .terminal__cursor {
-      animation: none;
-    }
-  }
-
-  .terminal__log-line {
-    color: var(--text-muted);
-    opacity: 0;
-    transform: translateY(8px);
-    transition:
-      opacity 0.3s var(--ease-out),
-      transform 0.3s var(--ease-out);
-  }
-
-  .terminal__log-line.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .terminal__progress-wrap {
-    margin-top: 1.25rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-  }
-
-  .terminal__progress-label {
-    color: var(--text-muted);
-    font-size: var(--text-xs);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .terminal__progress-pct {
-    color: var(--text-muted);
-    font-size: var(--text-xs);
-    font-family: var(--font-mono);
-  }
-
-  .terminal__progress-track {
-    height: 3px;
-    background: var(--divider);
-    border-radius: 999px;
-    overflow: hidden;
-  }
-
-  .terminal__progress-fill {
-    height: 100%;
-    background: var(--accent);
-    border-radius: 999px;
-    width: 0%;
-    transition: width 0.08s linear;
-  }
-
-  .terminal__success {
-    margin-top: 1.25rem;
-    color: var(--accent);
-    opacity: 0;
-    transform: translateY(8px);
-    transition:
-      opacity 0.4s var(--ease-out),
-      transform 0.4s var(--ease-out);
-  }
-
-  .terminal__success.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .terminal__link {
-    text-decoration: underline;
-    text-underline-offset: 3px;
-    text-decoration-color: rgba(200, 255, 0, 0.4);
-  }
-
-  /* ---- Responsive ---- */
-
-  @media (max-width: 900px) {
     .hero {
-      padding-top: calc(80px + 2.5rem);
+        min-height: 100svh;
+        display: flex;
+        align-items: center;
+        padding: calc(80px + 4rem) var(--gutter) 5rem;
     }
 
     .hero__inner {
-      grid-template-columns: 1fr;
-      gap: 3rem;
+        max-width: var(--max-w);
+        margin: 0 auto;
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5rem;
+        align-items: center;
     }
 
-    .hero__terminal-wrap {
-      order: -1;
+    /* ---- Copy column ---- */
+
+    .hero__eyebrow {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        margin-bottom: 1.75rem;
     }
 
-    .terminal {
-      max-width: 100%;
+    .eyebrow-dot {
+        display: inline-block;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--accent);
+        flex-shrink: 0;
+        animation: pulse-dot 2s ease-in-out infinite;
     }
-  }
+
+    @media (prefers-reduced-motion: reduce) {
+        .eyebrow-dot {
+            animation: none;
+        }
+    }
+
+    .hero__headline {
+        font-family: var(--font-display);
+        font-size: var(--text-hero);
+        line-height: 1.05;
+        font-weight: 400;
+        color: var(--text);
+        margin-bottom: 1.75rem;
+        letter-spacing: -0.02em;
+    }
+
+    .hero__headline em {
+        font-style: italic;
+        color: var(--text-muted);
+    }
+
+    .hero__sub {
+        font-size: var(--text-lg);
+        color: var(--text-muted);
+        max-width: 44ch;
+        margin-bottom: 2.5rem;
+        line-height: 1.7;
+    }
+
+    .hero__actions {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+
+    .hero__no-ci {
+        font-size: var(--text-xs);
+        color: var(--text-muted);
+        margin-top: 0.75rem;
+        font-family: var(--font-mono);
+        letter-spacing: 0.04em;
+        opacity: 0.7;
+    }
+
+    .btn {
+        font-family: var(--font-mono);
+        font-size: var(--text-sm);
+        font-weight: 500;
+        letter-spacing: 0.04em;
+        padding: 0.8rem 1.75rem;
+        border-radius: 999px;
+        transition:
+            transform 0.15s,
+            background 0.2s,
+            border-color 0.2s,
+            color 0.2s;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        white-space: nowrap;
+    }
+
+    .btn--primary {
+        background: var(--accent);
+        color: var(--bg);
+        border: 1px solid var(--accent);
+    }
+
+    .btn--primary:hover {
+        background: var(--accent-dim);
+        border-color: var(--accent-dim);
+        transform: translateY(-1px);
+    }
+
+    .btn--primary:active {
+        transform: translateY(0);
+    }
+
+    .btn--ghost {
+        border: 1px solid var(--divider);
+        color: var(--text);
+    }
+
+    .btn--ghost:hover {
+        border-color: var(--text-muted);
+        transform: translateY(-1px);
+    }
+
+    .btn--ghost:active {
+        transform: translateY(0);
+    }
+
+    /* ---- Deployment cards column ---- */
+
+    .hero__card-wrap {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    .deploy-cards {
+        width: 100%;
+        max-width: 480px;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    /* ---- Individual card ---- */
+
+    .deploy-card {
+        background: var(--surface);
+        border: 1px solid var(--divider);
+        border-radius: 10px;
+        padding: 1.75rem 2rem;
+        box-shadow:
+            0 32px 80px rgba(0, 0, 0, 0.55),
+            0 0 0 1px rgba(255, 255, 255, 0.04);
+        opacity: 0;
+        transform: translateY(16px);
+        animation: card-in 0.5s var(--ease-out) forwards;
+    }
+
+    .deploy-card:nth-child(1) {
+        animation-delay: 0.1s;
+    }
+
+    .deploy-card:nth-child(2) {
+        animation-delay: 0.22s;
+    }
+
+    @keyframes card-in {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .deploy-card {
+            animation: none;
+            opacity: 1;
+            transform: none;
+        }
+    }
+
+    /* Featured card: accent left border + faint top glow */
+    .deploy-card--featured {
+        border-left: 2px solid var(--accent);
+        box-shadow:
+            0 32px 80px rgba(0, 0, 0, 0.55),
+            0 0 0 1px rgba(255, 255, 255, 0.04),
+            0 -1px 0 0 rgba(200, 255, 0, 0.25);
+    }
+
+    /* ---- Card internals ---- */
+
+    .deploy-card__top {
+        margin-bottom: 0.9rem;
+    }
+
+    .deploy-card__badge {
+        display: inline-block;
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--divider);
+        border-radius: 4px;
+        padding: 0.2rem 0.55rem;
+    }
+
+    .deploy-card__badge--accent {
+        color: var(--accent);
+        background: rgba(200, 255, 0, 0.07);
+        border-color: rgba(200, 255, 0, 0.25);
+    }
+
+    .deploy-card__title {
+        font-family: var(--font-display);
+        font-size: var(--text-xl);
+        font-weight: 400;
+        letter-spacing: -0.01em;
+        color: var(--text);
+        margin-bottom: 0.6rem;
+        line-height: 1.2;
+    }
+
+    .deploy-card__desc {
+        font-size: var(--text-sm);
+        color: var(--text-muted);
+        line-height: 1.65;
+        margin-bottom: 1.25rem;
+    }
+
+    .deploy-card__traits {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.45rem;
+    }
+
+    .deploy-card__traits li {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
+        color: var(--text-muted);
+        letter-spacing: 0.02em;
+    }
+
+    .trait-diamond {
+        color: var(--accent);
+        font-size: 0.45rem;
+        flex-shrink: 0;
+        line-height: 1;
+        position: relative;
+        top: 0.5px;
+    }
+
+    /* ---- Responsive ---- */
+
+    @media (max-width: 900px) {
+        .hero {
+            padding-top: calc(80px + 2.5rem);
+        }
+
+        .hero__inner {
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
+
+        .deploy-cards {
+            max-width: 100%;
+        }
+    }
 </style>

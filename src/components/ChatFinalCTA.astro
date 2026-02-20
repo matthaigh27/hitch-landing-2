@@ -2,31 +2,33 @@
 
 ---
 
-<section class="cta" id="waitlist">
-    <div class="cta__inner">
-        <p class="cta__tagline">Documentation that deploys itself.</p>
+<section class="chat-cta" id="chat-waitlist">
+    <div class="chat-cta__inner">
+        <p class="chat-cta__tagline">Team chat, finally built for work.</p>
 
-        <h2 class="cta__heading">
-            Stop writing docs.<br />
-            <em>Start shipping them.</em>
+        <h2 class="chat-cta__heading">
+            Less noise.<br />
+            <em>More done.</em>
         </h2>
 
-        <button class="cta__btn" type="button" data-open-waitlist>
-            Join the Waitlist
-            <span aria-hidden="true">→</span>
+        <button type="button" class="chat-cta__open-btn" data-open-waitlist>
+            Join the Waitlist →
         </button>
-        <p class="cta__consent">No spam, ever. Unsubscribe in one click.</p>
+
+        <p class="chat-cta__consent">
+            No spam, ever. Unsubscribe in one click.
+        </p>
     </div>
 </section>
 
-<footer class="site-footer">
-    <div class="site-footer__inner">
-        <span class="site-footer__logo">HITCH</span>
-        <span class="site-footer__copy">
+<footer class="chat-site-footer">
+    <div class="chat-site-footer__inner">
+        <span class="chat-site-footer__logo">HITCH</span>
+        <span class="chat-site-footer__copy">
             &copy; {new Date().getFullYear()} Hitch. All rights reserved.
         </span>
-        <span class="site-footer__tagline"
-            >Documentation that deploys itself.</span
+        <span class="chat-site-footer__tagline"
+            >Team chat, finally built for work.</span
         >
     </div>
 </footer>
@@ -34,13 +36,13 @@
 <style>
     /* ---- CTA section ---- */
 
-    .cta {
+    .chat-cta {
         background: #040404;
         padding: 8rem var(--gutter) 7rem;
         border-top: 1px solid var(--divider);
     }
 
-    .cta__inner {
+    .chat-cta__inner {
         max-width: 700px;
         margin: 0 auto;
         display: flex;
@@ -48,7 +50,7 @@
         align-items: flex-start;
     }
 
-    .cta__tagline {
+    .chat-cta__tagline {
         font-family: var(--font-mono);
         font-size: var(--text-xs);
         color: var(--text-muted);
@@ -57,7 +59,7 @@
         margin-bottom: 1.5rem;
     }
 
-    .cta__heading {
+    .chat-cta__heading {
         font-family: var(--font-display);
         font-size: var(--text-hero);
         font-weight: 400;
@@ -66,37 +68,40 @@
         margin-bottom: 3rem;
     }
 
-    .cta__heading em {
+    .chat-cta__heading em {
         font-style: italic;
         color: var(--accent);
     }
 
-    .cta__btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        background: var(--accent);
-        color: var(--bg);
+    /* ---- CTA button ---- */
+
+    .chat-cta__open-btn {
         font-family: var(--font-mono);
-        font-size: var(--text-sm);
+        font-size: var(--text-base);
         font-weight: 700;
         letter-spacing: 0.04em;
-        padding: 0.85rem 2rem;
+        padding: 1rem 2.25rem;
         border-radius: 999px;
-        transition: background 0.2s, transform 0.15s;
+        background: var(--accent);
+        color: var(--bg);
+        border: none;
         cursor: pointer;
+        transition:
+            background 0.2s,
+            transform 0.15s;
+        white-space: nowrap;
     }
 
-    .cta__btn:hover {
+    .chat-cta__open-btn:hover {
         background: var(--accent-dim);
         transform: translateY(-1px);
     }
 
-    .cta__btn:active {
+    .chat-cta__open-btn:active {
         transform: translateY(0);
     }
 
-    .cta__consent {
+    .chat-cta__consent {
         font-family: var(--font-mono);
         font-size: var(--text-xs);
         color: var(--text-muted);
@@ -105,13 +110,13 @@
 
     /* ---- Footer ---- */
 
-    .site-footer {
+    .chat-site-footer {
         background: #040404;
         border-top: 1px solid var(--divider);
         padding: 2rem var(--gutter);
     }
 
-    .site-footer__inner {
+    .chat-site-footer__inner {
         max-width: var(--max-w);
         margin: 0 auto;
         display: flex;
@@ -120,7 +125,7 @@
         flex-wrap: wrap;
     }
 
-    .site-footer__logo {
+    .chat-site-footer__logo {
         font-family: var(--font-mono);
         font-size: var(--text-xs);
         font-weight: 700;
@@ -128,13 +133,13 @@
         color: var(--text);
     }
 
-    .site-footer__copy {
+    .chat-site-footer__copy {
         font-family: var(--font-mono);
         font-size: var(--text-xs);
         color: var(--text-muted);
     }
 
-    .site-footer__tagline {
+    .chat-site-footer__tagline {
         font-family: var(--font-mono);
         font-size: var(--text-xs);
         color: var(--divider);
@@ -142,7 +147,7 @@
     }
 
     @media (max-width: 480px) {
-        .site-footer__tagline {
+        .chat-site-footer__tagline {
             margin-left: 0;
         }
     }

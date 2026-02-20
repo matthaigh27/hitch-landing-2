@@ -1,127 +1,128 @@
 ---
+
 ---
 
 <section class="metrics" aria-label="Key metrics">
-  <div class="metrics__overflow">
-    <ul class="metrics__track" id="metrics-track">
-      <!-- Set 1 (visible) -->
-      <li class="metrics__item">
-        <span class="metrics__value">$0.50</span>
-        <span class="metrics__label">/ guide</span>
-      </li>
-      <li class="metrics__sep" aria-hidden="true">//</li>
-      <li class="metrics__item">
-        <span class="metrics__value">0 hrs</span>
-        <span class="metrics__label">per release</span>
-      </li>
-      <li class="metrics__sep" aria-hidden="true">//</li>
-      <li class="metrics__item">
-        <span class="metrics__value">&lt; 5 min</span>
-        <span class="metrics__label">to publish</span>
-      </li>
-      <li class="metrics__sep" aria-hidden="true">//</li>
-      <li class="metrics__item">
-        <span class="metrics__value">Always</span>
-        <span class="metrics__label">current</span>
-      </li>
-      <li class="metrics__sep metrics__sep--wide" aria-hidden="true">///</li>
+    <div class="metrics__overflow">
+        <ul class="metrics__track" id="metrics-track">
+            <!-- Set 1 (visible) -->
+            <li class="metrics__item"><span class="metrics__content">Release Notes</span></li>
+            <li class="metrics__sep" aria-hidden="true">//</li>
+            <li class="metrics__item"><span class="metrics__content">Video Tutorials</span></li>
+            <li class="metrics__sep" aria-hidden="true">//</li>
+            <li class="metrics__item"><span class="metrics__content">Docs</span></li>
+            <li class="metrics__sep" aria-hidden="true">//</li>
+            <li class="metrics__item"><span class="metrics__content">Guides</span></li>
+            <li class="metrics__sep" aria-hidden="true">//</li>
+            <li class="metrics__item"><span class="metrics__content">Knowledge Articles</span></li>
+            <li class="metrics__sep" aria-hidden="true">//</li>
+            <li class="metrics__item"><span class="metrics__content">Newsletters</span></li>
+            <li class="metrics__sep" aria-hidden="true">//</li>
+            <li class="metrics__item"><span class="metrics__content">Posts</span></li>
+            <li class="metrics__sep metrics__sep--wide" aria-hidden="true">///</li>
 
-      <!-- Set 2 (clone for seamless loop) -->
-      <li class="metrics__item metrics__clone" aria-hidden="true">
-        <span class="metrics__value">$0.50</span>
-        <span class="metrics__label">/ guide</span>
-      </li>
-      <li class="metrics__sep metrics__clone" aria-hidden="true">//</li>
-      <li class="metrics__item metrics__clone" aria-hidden="true">
-        <span class="metrics__value">0 hrs</span>
-        <span class="metrics__label">per release</span>
-      </li>
-      <li class="metrics__sep metrics__clone" aria-hidden="true">//</li>
-      <li class="metrics__item metrics__clone" aria-hidden="true">
-        <span class="metrics__value">&lt; 5 min</span>
-        <span class="metrics__label">to publish</span>
-      </li>
-      <li class="metrics__sep metrics__clone" aria-hidden="true">//</li>
-      <li class="metrics__item metrics__clone" aria-hidden="true">
-        <span class="metrics__value">Always</span>
-        <span class="metrics__label">current</span>
-      </li>
-      <li class="metrics__sep metrics__sep--wide metrics__clone" aria-hidden="true">///</li>
-    </ul>
-  </div>
+            <!-- Set 2 (clone for seamless loop) -->
+            <li class="metrics__item metrics__clone" aria-hidden="true"><span class="metrics__content">Release Notes</span></li>
+            <li class="metrics__sep metrics__clone" aria-hidden="true">//</li>
+            <li class="metrics__item metrics__clone" aria-hidden="true"><span class="metrics__content">Video Tutorials</span></li>
+            <li class="metrics__sep metrics__clone" aria-hidden="true">//</li>
+            <li class="metrics__item metrics__clone" aria-hidden="true"><span class="metrics__content">Docs</span></li>
+            <li class="metrics__sep metrics__clone" aria-hidden="true">//</li>
+            <li class="metrics__item metrics__clone" aria-hidden="true"><span class="metrics__content">Guides</span></li>
+            <li class="metrics__sep metrics__clone" aria-hidden="true">//</li>
+            <li class="metrics__item metrics__clone" aria-hidden="true"><span class="metrics__content">Knowledge Articles</span></li>
+            <li class="metrics__sep metrics__clone" aria-hidden="true">//</li>
+            <li class="metrics__item metrics__clone" aria-hidden="true"><span class="metrics__content">Newsletters</span></li>
+            <li class="metrics__sep metrics__clone" aria-hidden="true">//</li>
+            <li class="metrics__item metrics__clone" aria-hidden="true"><span class="metrics__content">Posts</span></li>
+            <li class="metrics__sep metrics__sep--wide metrics__clone" aria-hidden="true">///</li>
+        </ul>
+    </div>
 </section>
 
 <style>
-  .metrics {
-    border-top: 1px solid var(--divider);
-    border-bottom: 1px solid var(--divider);
-    background: var(--surface);
-    padding: 2.25rem 0;
-  }
+    .metrics {
+        border-top: 1px solid var(--divider);
+        border-bottom: 1px solid var(--divider);
+        background: var(--surface);
+        padding: 2.25rem 0;
+    }
 
-  .metrics__overflow {
-    overflow: hidden;
-  }
+    .metrics__overflow {
+        overflow: hidden;
+    }
 
-  .metrics__track {
-    display: flex;
-    align-items: center;
-    gap: 2.5rem;
-    list-style: none;
-    white-space: nowrap;
-    width: max-content;
-    animation: ticker-scroll 28s linear infinite;
-  }
-
-  .metrics__track:hover {
-    animation-play-state: paused;
-  }
-
-  .metrics__item {
-    display: flex;
-    align-items: baseline;
-    gap: 0.45rem;
-    font-family: var(--font-mono);
-  }
-
-  .metrics__value {
-    font-size: var(--text-stat);
-    color: var(--accent);
-    font-weight: 700;
-    line-height: 1;
-  }
-
-  .metrics__label {
-    font-size: var(--text-sm);
-    color: var(--text-muted);
-    letter-spacing: 0.04em;
-  }
-
-  .metrics__sep {
-    font-family: var(--font-mono);
-    font-size: var(--text-2xl);
-    color: var(--divider);
-    font-weight: 700;
-    user-select: none;
-    flex-shrink: 0;
-  }
-
-  .metrics__sep--wide {
-    letter-spacing: 0.1em;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
     .metrics__track {
-      animation: none;
-      width: auto;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 1.5rem 2.5rem;
-      white-space: normal;
+        display: flex;
+        align-items: center;
+        gap: 2.5rem;
+        list-style: none;
+        white-space: nowrap;
+        width: max-content;
+        animation: metrics-ticker 28s linear infinite;
     }
 
-    .metrics__clone {
-      display: none;
+    .metrics__track:hover {
+        animation-play-state: paused;
     }
-  }
+
+    .metrics__item {
+        font-family: var(--font-mono);
+        font-size: var(--text-sm);
+        color: var(--text-muted);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        white-space: nowrap;
+    }
+
+    .metrics__sep {
+        font-family: var(--font-mono);
+        font-size: var(--text-sm);
+        color: var(--divider);
+        font-weight: 700;
+        user-select: none;
+        flex-shrink: 0;
+    }
+
+    .metrics__sep--wide {
+        letter-spacing: 0.1em;
+    }
+
+    @keyframes metrics-ticker {
+        to { transform: translateX(calc(-1 * var(--ticker-offset, 50%))); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .metrics__track {
+            animation: none;
+            width: auto;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem 2.5rem;
+            white-space: normal;
+        }
+
+        .metrics__clone {
+            display: none;
+        }
+    }
 </style>
+
+<script>
+    const track = document.getElementById('metrics-track');
+    const firstClone = track.querySelector('.metrics__clone');
+    if (firstClone) {
+        const offset = firstClone.offsetLeft;
+        const set1Items = [...track.children].filter(li => !li.classList.contains('metrics__clone'));
+        // Append clone sets until remaining visible content covers the viewport
+        while (track.scrollWidth - offset < window.innerWidth) {
+            set1Items.forEach(li => {
+                const clone = li.cloneNode(true);
+                clone.classList.add('metrics__clone');
+                clone.setAttribute('aria-hidden', 'true');
+                track.appendChild(clone);
+            });
+        }
+        track.style.setProperty('--ticker-offset', `${offset}px`);
+    }
+</script>

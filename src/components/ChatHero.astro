@@ -1,0 +1,536 @@
+---
+
+---
+
+<section class="chat-hero">
+    <div class="chat-hero__inner">
+        <!-- Copy column -->
+        <div class="chat-hero__copy">
+            <p class="chat-hero__eyebrow">
+                <span class="chat-eyebrow-dot" aria-hidden="true"></span>
+                AI-native · Zero noise · Action-first
+            </p>
+            <h1 class="chat-hero__headline">
+                Your team is always online.<br />
+                <em>Nothing important gets done.</em>
+            </h1>
+            <p class="chat-hero__sub">
+                We're building a team chat built AI-first from day one -
+                branching conversations, automatic action tracking, and signals
+                that only interrupt you when they actually matter.
+            </p>
+            <div class="chat-hero__actions">
+                <button
+                    type="button"
+                    class="chat-btn chat-btn--primary"
+                    data-open-waitlist>Join the Waitlist</button
+                >
+                <!-- <a href="#chat-demo" class="chat-btn chat-btn--ghost"
+                    >Watch it work →</a
+                > -->
+            </div>
+        </div>
+
+        <!-- Chat widget column -->
+        <!-- <div class="chat-hero__widget-wrap">
+            <div
+                class="chat-widget"
+                id="chat-hero-widget"
+                aria-label="Live demo of Hitch chat"
+                role="img"
+            >
+                <div class="chat-widget__bar" aria-hidden="true">
+                    <span class="chat-widget__dot chat-widget__dot--red"></span>
+                    <span class="chat-widget__dot chat-widget__dot--yellow"
+                    ></span>
+                    <span class="chat-widget__dot chat-widget__dot--green"
+                    ></span>
+                    <span class="chat-widget__bar-title">hitch - chat</span>
+                </div>
+                <div class="chat-widget__body" aria-hidden="true">
+                    <div class="chat-widget__messages" id="chat-messages"></div>
+                    <div
+                        class="chat-widget__ai-badge"
+                        id="chat-ai-badge"
+                        style="display:none"
+                    >
+                        <span class="chat-widget__ai-icon">⬡</span>
+                        <div class="chat-widget__ai-content">
+                            <span class="chat-widget__ai-label"
+                                >action captured</span
+                            >
+                            <span class="chat-widget__ai-item"
+                                >→ ship API endpoint · Thursday</span
+                            >
+                            <span class="chat-widget__ai-item"
+                                >→ Sam: owns test review</span
+                            >
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+    </div>
+</section>
+
+<script>
+    const prefersReducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    function sleep(ms: number): Promise<void> {
+        return new Promise((resolve) => setTimeout(resolve, ms));
+    }
+
+    function createMessage(
+        avatar: string,
+        name: string,
+        text: string,
+        extra?: string,
+    ): HTMLElement {
+        const row = document.createElement("div");
+        row.className = "chat-msg";
+
+        const av = document.createElement("span");
+        av.className = "chat-msg__avatar";
+        av.textContent = avatar;
+
+        const body = document.createElement("div");
+        body.className = "chat-msg__body";
+
+        const namEl = document.createElement("span");
+        namEl.className = "chat-msg__name";
+        namEl.textContent = name;
+
+        const txt = document.createElement("p");
+        txt.className = "chat-msg__text";
+        txt.textContent = text;
+
+        body.appendChild(namEl);
+        body.appendChild(txt);
+
+        if (extra) {
+            const branch = document.createElement("span");
+            branch.className = "chat-msg__branch";
+            branch.id = "chat-branch-indicator";
+            branch.textContent = extra;
+            branch.style.opacity = "0";
+            body.appendChild(branch);
+        }
+
+        row.appendChild(av);
+        row.appendChild(body);
+        return row;
+    }
+
+    async function runChatSequence(): Promise<void> {
+        const messagesEl = document.getElementById("chat-messages");
+        const aiBadge = document.getElementById("chat-ai-badge");
+
+        if (!messagesEl || !aiBadge) return;
+
+        // Reset
+        messagesEl.innerHTML = "";
+        aiBadge.style.display = "none";
+        aiBadge.classList.remove("is-visible");
+
+        if (prefersReducedMotion) {
+            const m1 = createMessage(
+                "A",
+                "Alex",
+                "Let's ship the new API endpoint on Thursday.",
+            );
+            const m2 = createMessage(
+                "S",
+                "Sam",
+                "Agreed. I'll handle the tests.",
+                '↗ branch: "test plan"',
+            );
+            m1.classList.add("is-visible");
+            m2.classList.add("is-visible");
+            messagesEl.appendChild(m1);
+            messagesEl.appendChild(m2);
+            const branch = document.getElementById("chat-branch-indicator");
+            if (branch) branch.style.opacity = "1";
+            aiBadge.style.display = "flex";
+            aiBadge.classList.add("is-visible");
+            return;
+        }
+
+        // Message 1
+        await sleep(600);
+        const msg1 = createMessage(
+            "A",
+            "Alex",
+            "Let's ship the new API endpoint on Thursday.",
+        );
+        messagesEl.appendChild(msg1);
+        requestAnimationFrame(() =>
+            requestAnimationFrame(() => msg1.classList.add("is-visible")),
+        );
+
+        // Message 2
+        await sleep(1400);
+        const msg2 = createMessage(
+            "S",
+            "Sam",
+            "Agreed. I'll handle the tests.",
+            '↗ branch: "test plan"',
+        );
+        messagesEl.appendChild(msg2);
+        requestAnimationFrame(() =>
+            requestAnimationFrame(() => msg2.classList.add("is-visible")),
+        );
+
+        // AI badge
+        await sleep(1200);
+        aiBadge.style.display = "flex";
+        requestAnimationFrame(() =>
+            requestAnimationFrame(() => aiBadge.classList.add("is-visible")),
+        );
+
+        // Branch indicator on Sam's message
+        await sleep(1000);
+        const branchEl = document.getElementById("chat-branch-indicator");
+        if (branchEl) {
+            branchEl.style.transition = "opacity 0.4s var(--ease-out)";
+            branchEl.style.opacity = "1";
+        }
+
+        // Loop after 10s
+        await sleep(10000);
+        aiBadge.classList.remove("is-visible");
+        await sleep(500);
+        runChatSequence();
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        setTimeout(runChatSequence, 600);
+    });
+</script>
+
+<style>
+    .chat-hero {
+        min-height: 100svh;
+        display: flex;
+        align-items: center;
+        padding: calc(80px + 4rem) var(--gutter) 5rem;
+    }
+
+    .chat-hero__inner {
+        max-width: var(--max-w);
+        margin: 0 auto;
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5rem;
+        align-items: center;
+    }
+
+    /* ---- Copy column ---- */
+
+    .chat-hero__eyebrow {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
+        color: var(--accent);
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        margin-bottom: 1.75rem;
+    }
+
+    .chat-eyebrow-dot {
+        display: inline-block;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--accent);
+        flex-shrink: 0;
+        animation: pulse-dot 2s ease-in-out infinite;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .chat-eyebrow-dot {
+            animation: none;
+        }
+    }
+
+    .chat-hero__headline {
+        font-family: var(--font-display);
+        font-size: var(--text-hero);
+        line-height: 1.05;
+        font-weight: 400;
+        color: var(--text);
+        margin-bottom: 1.75rem;
+        letter-spacing: -0.02em;
+    }
+
+    .chat-hero__headline em {
+        font-style: italic;
+        color: var(--text-muted);
+    }
+
+    .chat-hero__sub {
+        font-size: var(--text-lg);
+        color: var(--text-muted);
+        max-width: 44ch;
+        margin-bottom: 2.5rem;
+        line-height: 1.7;
+    }
+
+    .chat-hero__actions {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        align-items: center;
+    }
+
+    .chat-btn {
+        font-family: var(--font-mono);
+        font-size: var(--text-sm);
+        font-weight: 500;
+        letter-spacing: 0.04em;
+        padding: 0.8rem 1.75rem;
+        border-radius: 999px;
+        transition:
+            transform 0.15s,
+            background 0.2s,
+            border-color 0.2s,
+            color 0.2s;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        white-space: nowrap;
+    }
+
+    .chat-btn--primary {
+        background: var(--accent);
+        color: var(--bg);
+        border: 1px solid var(--accent);
+    }
+
+    .chat-btn--primary:hover {
+        background: var(--accent-dim);
+        border-color: var(--accent-dim);
+        transform: translateY(-1px);
+    }
+
+    .chat-btn--primary:active {
+        transform: translateY(0);
+    }
+
+    .chat-btn--ghost {
+        border: 1px solid var(--divider);
+        color: var(--text);
+    }
+
+    .chat-btn--ghost:hover {
+        border-color: var(--text-muted);
+        transform: translateY(-1px);
+    }
+
+    .chat-btn--ghost:active {
+        transform: translateY(0);
+    }
+
+    /* ---- Widget column ---- */
+
+    .chat-hero__widget-wrap {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    .chat-widget {
+        width: 100%;
+        max-width: 520px;
+        background: var(--surface);
+        border: 1px solid var(--divider);
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow:
+            0 32px 80px rgba(0, 0, 0, 0.55),
+            0 0 0 1px rgba(255, 255, 255, 0.04);
+    }
+
+    .chat-widget__bar {
+        background: #1c1c1c;
+        padding: 0.75rem 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.45rem;
+        border-bottom: 1px solid var(--divider);
+        position: relative;
+    }
+
+    .chat-widget__dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        flex-shrink: 0;
+    }
+
+    .chat-widget__dot--red {
+        background: #ff5f57;
+    }
+    .chat-widget__dot--yellow {
+        background: #febc2e;
+    }
+    .chat-widget__dot--green {
+        background: #28c840;
+    }
+
+    .chat-widget__bar-title {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
+        color: var(--text-muted);
+    }
+
+    .chat-widget__body {
+        padding: 1.5rem;
+        min-height: 240px;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .chat-widget__messages {
+        display: flex;
+        flex-direction: column;
+        gap: 0.85rem;
+    }
+
+    /* Individual message */
+    .chat-msg {
+        display: flex;
+        gap: 0.75rem;
+        align-items: flex-start;
+        opacity: 0;
+        transform: translateY(8px);
+        transition:
+            opacity 0.35s var(--ease-out),
+            transform 0.35s var(--ease-out);
+    }
+
+    .chat-msg.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .chat-msg__avatar {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: var(--divider);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
+        font-weight: 700;
+        color: var(--text-muted);
+        flex-shrink: 0;
+        line-height: 1;
+    }
+
+    .chat-msg__body {
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+    }
+
+    .chat-msg__name {
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
+        color: var(--accent);
+        letter-spacing: 0.04em;
+    }
+
+    .chat-msg__text {
+        font-size: var(--text-sm);
+        color: var(--text);
+        line-height: 1.5;
+    }
+
+    .chat-msg__branch {
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
+        color: var(--accent);
+        opacity: 0.7;
+        margin-top: 0.15rem;
+        letter-spacing: 0.02em;
+    }
+
+    /* AI badge */
+    .chat-widget__ai-badge {
+        display: flex;
+        gap: 0.65rem;
+        align-items: flex-start;
+        background: rgba(var(--accent-rgb), 0.06);
+        border: 1px solid rgba(var(--accent-rgb), 0.18);
+        border-radius: 6px;
+        padding: 0.75rem 0.9rem;
+        opacity: 0;
+        transform: translateY(8px);
+        transition:
+            opacity 0.4s var(--ease-out),
+            transform 0.4s var(--ease-out);
+    }
+
+    .chat-widget__ai-badge.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .chat-widget__ai-icon {
+        font-size: var(--text-lg);
+        color: var(--accent);
+        flex-shrink: 0;
+        line-height: 1.2;
+    }
+
+    .chat-widget__ai-content {
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+    }
+
+    .chat-widget__ai-label {
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
+        color: var(--accent);
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        margin-bottom: 0.2rem;
+    }
+
+    .chat-widget__ai-item {
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
+        color: var(--text-muted);
+        line-height: 1.6;
+    }
+
+    /* ---- Responsive ---- */
+
+    @media (max-width: 900px) {
+        .chat-hero {
+            padding-top: calc(80px + 2.5rem);
+        }
+
+        .chat-hero__inner {
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
+
+        .chat-widget {
+            max-width: 100%;
+        }
+    }
+</style>

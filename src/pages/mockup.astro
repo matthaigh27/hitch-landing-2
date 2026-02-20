@@ -1,0 +1,1232 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Hitch - Design Explorations">
+    <div class="gallery">
+        <header class="gallery__header">
+            HITCH &nbsp;·&nbsp; DESIGN EXPLORATIONS &nbsp;·&nbsp; 2026
+        </header>
+
+        <!-- ══════════════════════════════════════════════════════════ -->
+        <!-- V1: VERCEL-STYLE - SIDEBAR + RELEASE FEED                 -->
+        <!-- ══════════════════════════════════════════════════════════ -->
+        <section class="gallery__variant">
+            <div class="gallery__tag">01 - FEED</div>
+            <div class="gallery__frame">
+                <div class="mk1__app">
+                    <!-- Sidebar -->
+                    <aside class="mk1__sidebar">
+                        <div class="mk1__logo">◈ Hitch</div>
+                        <nav class="mk1__nav">
+                            <div class="mk1__nav-item mk1__nav-item--active">
+                                Features
+                            </div>
+                            <div class="mk1__nav-item">Guides</div>
+                            <div class="mk1__nav-item">Release Notes</div>
+                            <div class="mk1__nav-item">Settings</div>
+                        </nav>
+                        <div class="mk1__sync-indicator">
+                            <span class="mk1__sync-dot"></span>Syncing...
+                        </div>
+                    </aside>
+
+                    <!-- Main -->
+                    <main class="mk1__main">
+                        <div class="mk1__main-header">
+                            <h1 class="mk1__title">Features</h1>
+                            <div class="mk1__meta-row">
+                                <span class="mk1__meta-chip">6 features</span>
+                                <span class="mk1__meta-sep">·</span>
+                                <span
+                                    class="mk1__meta-chip mk1__meta-chip--warn"
+                                    >2 need attention</span
+                                >
+                                <span class="mk1__meta-sep">·</span>
+                                <span class="mk1__meta-chip">Last sync 2m</span>
+                            </div>
+                        </div>
+
+                        <div class="mk1__feed">
+                            <!-- Row 1 -->
+                            <div class="mk1__row">
+                                <div class="mk1__row-left">
+                                    <span class="mk1__row-name"
+                                        >Voice &amp; Audio</span
+                                    >
+                                    <span class="mk1__version-pill">v2.4.0</span
+                                    >
+                                </div>
+                                <div class="mk1__row-right">
+                                    <span
+                                        class="mk1__status-badge mk1__status-badge--syncing"
+                                        >Auto-syncing</span
+                                    >
+                                    <span class="mk1__revisions"
+                                        >↻ 1 revision</span
+                                    >
+                                    <span class="mk1__time">2h ago</span>
+                                </div>
+                            </div>
+                            <div class="mk1__divider"></div>
+
+                            <!-- Row 2 -->
+                            <div class="mk1__row">
+                                <div class="mk1__row-left">
+                                    <span class="mk1__row-name"
+                                        >Webhook Triggers</span
+                                    >
+                                    <span class="mk1__version-pill">v2.3.5</span
+                                    >
+                                </div>
+                                <div class="mk1__row-right">
+                                    <span
+                                        class="mk1__status-badge mk1__status-badge--review"
+                                        >Needs Review</span
+                                    >
+                                    <span class="mk1__revisions"
+                                        >↻ 5 revisions</span
+                                    >
+                                    <span class="mk1__time">1d ago</span>
+                                </div>
+                            </div>
+                            <div class="mk1__divider"></div>
+
+                            <!-- Row 3 -->
+                            <div class="mk1__row">
+                                <div class="mk1__row-left">
+                                    <span class="mk1__row-name"
+                                        >SSO Integration</span
+                                    >
+                                    <span class="mk1__version-pill">v2.3.0</span
+                                    >
+                                </div>
+                                <div class="mk1__row-right">
+                                    <span
+                                        class="mk1__status-badge mk1__status-badge--live"
+                                        >Live</span
+                                    >
+                                    <span class="mk1__revisions"
+                                        >↻ 3 revisions</span
+                                    >
+                                    <span class="mk1__time">3d ago</span>
+                                </div>
+                            </div>
+                            <div class="mk1__divider"></div>
+
+                            <!-- Row 4 -->
+                            <div class="mk1__row">
+                                <div class="mk1__row-left">
+                                    <span class="mk1__row-name">Mobile SDK</span
+                                    >
+                                    <span class="mk1__version-pill">v2.2.8</span
+                                    >
+                                </div>
+                                <div class="mk1__row-right">
+                                    <span
+                                        class="mk1__status-badge mk1__status-badge--live"
+                                        >Live</span
+                                    >
+                                    <span class="mk1__revisions"
+                                        >↻ 2 revisions</span
+                                    >
+                                    <span class="mk1__time">1wk ago</span>
+                                </div>
+                            </div>
+                            <div class="mk1__divider"></div>
+
+                            <!-- Row 5 -->
+                            <div class="mk1__row">
+                                <div class="mk1__row-left">
+                                    <span class="mk1__row-name"
+                                        >Billing API</span
+                                    >
+                                    <span class="mk1__version-pill">v2.2.5</span
+                                    >
+                                </div>
+                                <div class="mk1__row-right">
+                                    <span
+                                        class="mk1__status-badge mk1__status-badge--live"
+                                        >Live</span
+                                    >
+                                    <span class="mk1__revisions"
+                                        >↻ 0 revisions</span
+                                    >
+                                    <span class="mk1__time">2wks ago</span>
+                                </div>
+                            </div>
+                            <div class="mk1__divider"></div>
+
+                            <!-- Row 6 -->
+                            <div class="mk1__row">
+                                <div class="mk1__row-left">
+                                    <span class="mk1__row-name"
+                                        >Role-based Access</span
+                                    >
+                                    <span class="mk1__version-pill">v2.2.0</span
+                                    >
+                                </div>
+                                <div class="mk1__row-right">
+                                    <span
+                                        class="mk1__status-badge mk1__status-badge--live"
+                                        >Live</span
+                                    >
+                                    <span class="mk1__revisions"
+                                        >↻ 4 revisions</span
+                                    >
+                                    <span class="mk1__time">3wks ago</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mk1__bottom-bar">
+                            <span class="mk1__bottom-logo">◈ Hitch</span>
+                            <span class="mk1__bottom-sep">·</span>
+                            <span class="mk1__bottom-text"
+                                >6 features tracked</span
+                            >
+                            <span class="mk1__bottom-sep">·</span>
+                            <span class="mk1__bottom-text"
+                                >Auto-synced from GitHub</span
+                            >
+                        </div>
+                    </main>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══════════════════════════════════════════════════════════ -->
+        <!-- V2: POSTHOG-STYLE - STATUS CARDS + FEATURE GRID           -->
+        <!-- ══════════════════════════════════════════════════════════ -->
+        <section class="gallery__variant">
+            <div class="gallery__tag">02 - GRID</div>
+            <div class="gallery__frame">
+                <div class="mk2__app">
+                    <!-- Header -->
+                    <div class="mk2__header">
+                        <span class="mk2__logo">◈ Hitch</span>
+                        <span class="mk2__page-title">Docs Health</span>
+                        <span class="mk2__syncing-badge">
+                            <span class="mk2__syncing-dot"></span>↻ syncing
+                        </span>
+                    </div>
+
+                    <!-- Status cards -->
+                    <div class="mk2__status-row">
+                        <div class="mk2__status-card mk2__status-card--live">
+                            <div class="mk2__status-count">4</div>
+                            <div class="mk2__status-label">Live</div>
+                        </div>
+                        <div class="mk2__status-card mk2__status-card--syncing">
+                            <div class="mk2__status-count">
+                                <span class="mk2__status-pulse-dot"></span>1
+                            </div>
+                            <div class="mk2__status-label">Auto-syncing</div>
+                        </div>
+                        <div class="mk2__status-card mk2__status-card--review">
+                            <div class="mk2__status-count">1</div>
+                            <div class="mk2__status-label">Needs Review</div>
+                        </div>
+                    </div>
+
+                    <!-- Feature grid -->
+                    <div class="mk2__grid">
+                        <div class="mk2__card mk2__card--syncing">
+                            <div class="mk2__card-header">
+                                <span class="mk2__card-name"
+                                    >Voice &amp; Audio</span
+                                >
+                            </div>
+                            <div class="mk2__card-version-row">
+                                <span class="mk2__card-version">v2.4.0</span>
+                                <span
+                                    class="mk2__card-pill mk2__card-pill--syncing"
+                                    >Auto-syncing</span
+                                >
+                            </div>
+                            <div class="mk2__card-footer">
+                                <span class="mk2__card-revisions"
+                                    >↻ 1 revision</span
+                                >
+                                <span class="mk2__card-time">2h ago</span>
+                            </div>
+                            <div
+                                class="mk2__card-accent mk2__card-accent--syncing"
+                            >
+                            </div>
+                        </div>
+
+                        <div class="mk2__card mk2__card--review">
+                            <div class="mk2__card-header">
+                                <span class="mk2__card-name"
+                                    >Webhook Triggers</span
+                                >
+                            </div>
+                            <div class="mk2__card-version-row">
+                                <span class="mk2__card-version">v2.3.5</span>
+                                <span
+                                    class="mk2__card-pill mk2__card-pill--review"
+                                    >Needs Review</span
+                                >
+                            </div>
+                            <div class="mk2__card-footer">
+                                <span class="mk2__card-revisions"
+                                    >↻ 5 revisions</span
+                                >
+                                <span class="mk2__card-time">1d ago</span>
+                            </div>
+                            <div
+                                class="mk2__card-accent mk2__card-accent--review"
+                            >
+                            </div>
+                        </div>
+
+                        <div class="mk2__card">
+                            <div class="mk2__card-header">
+                                <span class="mk2__card-name"
+                                    >SSO Integration</span
+                                >
+                            </div>
+                            <div class="mk2__card-version-row">
+                                <span class="mk2__card-version">v2.3.0</span>
+                                <span
+                                    class="mk2__card-pill mk2__card-pill--live"
+                                    >Live</span
+                                >
+                            </div>
+                            <div class="mk2__card-footer">
+                                <span class="mk2__card-revisions"
+                                    >↻ 3 revisions</span
+                                >
+                                <span class="mk2__card-time">3d ago</span>
+                            </div>
+                            <div
+                                class="mk2__card-accent mk2__card-accent--live"
+                            >
+                            </div>
+                        </div>
+
+                        <div class="mk2__card">
+                            <div class="mk2__card-header">
+                                <span class="mk2__card-name">Mobile SDK</span>
+                            </div>
+                            <div class="mk2__card-version-row">
+                                <span class="mk2__card-version">v2.2.8</span>
+                                <span
+                                    class="mk2__card-pill mk2__card-pill--live"
+                                    >Live</span
+                                >
+                            </div>
+                            <div class="mk2__card-footer">
+                                <span class="mk2__card-revisions"
+                                    >↻ 2 revisions</span
+                                >
+                                <span class="mk2__card-time">1wk ago</span>
+                            </div>
+                            <div
+                                class="mk2__card-accent mk2__card-accent--live"
+                            >
+                            </div>
+                        </div>
+
+                        <div class="mk2__card">
+                            <div class="mk2__card-header">
+                                <span class="mk2__card-name">Billing API</span>
+                            </div>
+                            <div class="mk2__card-version-row">
+                                <span class="mk2__card-version">v2.2.5</span>
+                                <span
+                                    class="mk2__card-pill mk2__card-pill--live"
+                                    >Live</span
+                                >
+                            </div>
+                            <div class="mk2__card-footer">
+                                <span class="mk2__card-revisions"
+                                    >↻ 0 revisions</span
+                                >
+                                <span class="mk2__card-time">2wks ago</span>
+                            </div>
+                            <div
+                                class="mk2__card-accent mk2__card-accent--live"
+                            >
+                            </div>
+                        </div>
+
+                        <div class="mk2__card">
+                            <div class="mk2__card-header">
+                                <span class="mk2__card-name"
+                                    >Role-based Access</span
+                                >
+                            </div>
+                            <div class="mk2__card-version-row">
+                                <span class="mk2__card-version">v2.2.0</span>
+                                <span
+                                    class="mk2__card-pill mk2__card-pill--live"
+                                    >Live</span
+                                >
+                            </div>
+                            <div class="mk2__card-footer">
+                                <span class="mk2__card-revisions"
+                                    >↻ 4 revisions</span
+                                >
+                                <span class="mk2__card-time">3wks ago</span>
+                            </div>
+                            <div
+                                class="mk2__card-accent mk2__card-accent--live"
+                            >
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ══════════════════════════════════════════════════════════ -->
+        <!-- V3: MUX-STYLE - ACTIVITY TIMELINE                         -->
+        <!-- ══════════════════════════════════════════════════════════ -->
+        <section class="gallery__variant">
+            <div class="gallery__tag">03 - TIMELINE</div>
+            <div class="gallery__frame">
+                <div class="mk3__app">
+                    <!-- Header bar -->
+                    <div class="mk3__header">
+                        <span class="mk3__logo">◈ Hitch</span>
+                        <span class="mk3__page-title">Release Activity</span>
+                        <span class="mk3__summary-pill"
+                            >6 features · 2 syncing</span
+                        >
+                    </div>
+
+                    <!-- Timeline -->
+                    <div class="mk3__timeline">
+                        <div class="mk3__event" style="opacity:1.0">
+                            <div class="mk3__spine-col">
+                                <div class="mk3__dot mk3__dot--syncing"></div>
+                                <div class="mk3__spine-line"></div>
+                            </div>
+                            <div class="mk3__event-body">
+                                <div class="mk3__event-top">
+                                    <span class="mk3__event-name"
+                                        >Voice &amp; Audio</span
+                                    >
+                                    <span class="mk3__event-version"
+                                        >v2.4.0</span
+                                    >
+                                </div>
+                                <div class="mk3__event-detail">
+                                    Guide auto-syncing · ↻ 1 revision · 2h ago
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mk3__event" style="opacity:0.88">
+                            <div class="mk3__spine-col">
+                                <div class="mk3__dot mk3__dot--review"></div>
+                                <div class="mk3__spine-line"></div>
+                            </div>
+                            <div class="mk3__event-body">
+                                <div class="mk3__event-top">
+                                    <span class="mk3__event-name"
+                                        >Webhook Triggers</span
+                                    >
+                                    <span class="mk3__event-version"
+                                        >v2.3.5</span
+                                    >
+                                </div>
+                                <div class="mk3__event-detail">
+                                    Guide needs review · ↻ 5 revisions · 1d ago
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mk3__event" style="opacity:0.72">
+                            <div class="mk3__spine-col">
+                                <div class="mk3__dot mk3__dot--live"></div>
+                                <div class="mk3__spine-line"></div>
+                            </div>
+                            <div class="mk3__event-body">
+                                <div class="mk3__event-top">
+                                    <span class="mk3__event-name"
+                                        >SSO Integration</span
+                                    >
+                                    <span class="mk3__event-version"
+                                        >v2.3.0</span
+                                    >
+                                </div>
+                                <div class="mk3__event-detail">
+                                    Guide live · ↻ 3 revisions · 3d ago
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mk3__event" style="opacity:0.56">
+                            <div class="mk3__spine-col">
+                                <div class="mk3__dot mk3__dot--live"></div>
+                                <div class="mk3__spine-line"></div>
+                            </div>
+                            <div class="mk3__event-body">
+                                <div class="mk3__event-top">
+                                    <span class="mk3__event-name"
+                                        >Mobile SDK</span
+                                    >
+                                    <span class="mk3__event-version"
+                                        >v2.2.8</span
+                                    >
+                                </div>
+                                <div class="mk3__event-detail">
+                                    Guide live · ↻ 2 revisions · 1wk ago
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mk3__event" style="opacity:0.40">
+                            <div class="mk3__spine-col">
+                                <div class="mk3__dot mk3__dot--live"></div>
+                                <div class="mk3__spine-line"></div>
+                            </div>
+                            <div class="mk3__event-body">
+                                <div class="mk3__event-top">
+                                    <span class="mk3__event-name"
+                                        >Billing API</span
+                                    >
+                                    <span class="mk3__event-version"
+                                        >v2.2.5</span
+                                    >
+                                </div>
+                                <div class="mk3__event-detail">
+                                    Guide live · ↻ 0 revisions · 2wks ago
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mk3__event" style="opacity:0.25">
+                            <div class="mk3__spine-col">
+                                <div class="mk3__dot mk3__dot--live"></div>
+                                <div
+                                    class="mk3__spine-line mk3__spine-line--last"
+                                >
+                                </div>
+                            </div>
+                            <div class="mk3__event-body">
+                                <div class="mk3__event-top">
+                                    <span class="mk3__event-name"
+                                        >Role-based Access</span
+                                    >
+                                    <span class="mk3__event-version"
+                                        >v2.2.0</span
+                                    >
+                                </div>
+                                <div class="mk3__event-detail">
+                                    Guide live · ↻ 4 revisions · 3wks ago
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</Layout>
+
+<style is:global>
+    body {
+        background-color: #050505;
+    }
+
+    /* ── Gallery shell ─────────────────────────────────────────── */
+    .gallery {
+        padding: 3rem 2rem 6rem;
+        background: #050505;
+        min-height: 100vh;
+    }
+
+    .gallery__header {
+        text-align: center;
+        font-family: var(--font-mono);
+        font-size: 0.65rem;
+        color: #2e2e2e;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        margin-bottom: 4rem;
+    }
+
+    .gallery__variant {
+        max-width: 800px;
+        margin: 0 auto 6rem;
+    }
+
+    .gallery__tag {
+        font-family: var(--font-mono);
+        font-size: 0.6rem;
+        color: #2e2e2e;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        margin-bottom: 0.85rem;
+    }
+
+    .gallery__frame {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 1;
+        overflow: hidden;
+        border-radius: 6px;
+        box-shadow:
+            0 24px 80px rgba(0, 0, 0, 0.8),
+            0 4px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    /* ══════════════════════════════════════════════════════════ */
+    /* V1 - VERCEL-STYLE: SIDEBAR + RELEASE FEED                 */
+    /* ══════════════════════════════════════════════════════════ */
+
+    .mk1__app {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        background: #0d1117;
+        font-family: var(--font-body);
+        font-size: 0.875rem;
+        color: #8b949e;
+        overflow: hidden;
+    }
+
+    /* Sidebar */
+    .mk1__sidebar {
+        width: 150px;
+        flex-shrink: 0;
+        background: #0a0a0a;
+        border-right: 1px solid #161b22;
+        display: flex;
+        flex-direction: column;
+        padding: 1.5rem 0 1rem;
+        gap: 0;
+    }
+
+    .mk1__logo {
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: #c8ff00;
+        padding: 0 1rem;
+        margin-bottom: 1.75rem;
+    }
+
+    .mk1__nav {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+    }
+
+    .mk1__nav-item {
+        font-size: 0.75rem;
+        color: #484f58;
+        padding: 0.45rem 1rem;
+        cursor: pointer;
+        border-left: 2px solid transparent;
+    }
+
+    .mk1__nav-item--active {
+        color: #e6edf3;
+        border-left-color: #c8ff00;
+        background: rgba(255, 255, 255, 0.02);
+    }
+
+    .mk1__sync-indicator {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.75rem 1rem;
+        font-family: var(--font-mono);
+        font-size: 0.6rem;
+        color: #2e3248;
+        border-top: 1px solid #161b22;
+    }
+
+    .mk1__sync-dot {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: #c8ff00;
+        flex-shrink: 0;
+        animation: mk1-pulse 1.6s ease-in-out infinite;
+    }
+
+    /* Main area */
+    .mk1__main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+    .mk1__main-header {
+        padding: 1.5rem 1.75rem 1rem;
+        border-bottom: 1px solid #161b22;
+        flex-shrink: 0;
+    }
+
+    .mk1__title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #e6edf3;
+        margin-bottom: 0.5rem;
+        line-height: 1;
+    }
+
+    .mk1__meta-row {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+    }
+
+    .mk1__meta-chip {
+        font-family: var(--font-mono);
+        font-size: 0.6rem;
+        color: #484f58;
+    }
+
+    .mk1__meta-chip--warn {
+        color: #f59e0b;
+    }
+
+    .mk1__meta-sep {
+        font-size: 0.6rem;
+        color: #2a2f38;
+    }
+
+    .mk1__feed {
+        flex: 1;
+        overflow-y: auto;
+        scrollbar-width: thin;
+        scrollbar-color: #21262d transparent;
+        padding: 0.35rem 0;
+    }
+
+    .mk1__row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.75rem 1.75rem;
+        gap: 1rem;
+    }
+
+    .mk1__row-left {
+        display: flex;
+        align-items: center;
+        gap: 0.65rem;
+        min-width: 0;
+    }
+
+    .mk1__row-name {
+        font-size: 0.82rem;
+        font-weight: 500;
+        color: #c9d1d9;
+        white-space: nowrap;
+    }
+
+    .mk1__version-pill {
+        font-family: var(--font-mono);
+        font-size: 0.58rem;
+        color: #484f58;
+        background: #161b22;
+        border: 1px solid #21262d;
+        border-radius: 3px;
+        padding: 0.1rem 0.38rem;
+        flex-shrink: 0;
+    }
+
+    .mk1__row-right {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        flex-shrink: 0;
+    }
+
+    .mk1__status-badge {
+        font-family: var(--font-mono);
+        font-size: 0.58rem;
+        border-radius: 99px;
+        padding: 0.18rem 0.55rem;
+        font-weight: 500;
+        flex-shrink: 0;
+    }
+
+    .mk1__status-badge--live {
+        color: #22c55e;
+        background: rgba(34, 197, 94, 0.08);
+        border: 1px solid rgba(34, 197, 94, 0.2);
+    }
+
+    .mk1__status-badge--syncing {
+        color: #c8ff00;
+        background: rgba(200, 255, 0, 0.07);
+        border: 1px solid rgba(200, 255, 0, 0.18);
+    }
+
+    .mk1__status-badge--review {
+        color: #f59e0b;
+        background: rgba(245, 158, 11, 0.08);
+        border: 1px solid rgba(245, 158, 11, 0.2);
+    }
+
+    .mk1__revisions {
+        font-family: var(--font-mono);
+        font-size: 0.6rem;
+        color: #30363d;
+    }
+
+    .mk1__time {
+        font-family: var(--font-mono);
+        font-size: 0.6rem;
+        color: #30363d;
+        text-align: right;
+        min-width: 52px;
+    }
+
+    .mk1__divider {
+        height: 1px;
+        background: #161b22;
+        margin: 0 1.75rem;
+    }
+
+    .mk1__bottom-bar {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.65rem 1.75rem;
+        border-top: 1px solid #161b22;
+        flex-shrink: 0;
+        background: #0a0a0a;
+    }
+
+    .mk1__bottom-logo {
+        font-family: var(--font-mono);
+        font-size: 0.6rem;
+        color: #c8ff00;
+        font-weight: 600;
+    }
+
+    .mk1__bottom-sep {
+        font-size: 0.6rem;
+        color: #21262d;
+    }
+
+    .mk1__bottom-text {
+        font-family: var(--font-mono);
+        font-size: 0.6rem;
+        color: #2a2f38;
+    }
+
+    /* ══════════════════════════════════════════════════════════ */
+    /* V2 - POSTHOG-STYLE: STATUS CARDS + FEATURE GRID           */
+    /* ══════════════════════════════════════════════════════════ */
+
+    .mk2__app {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        background: #111318;
+        font-family: var(--font-body);
+        font-size: 0.875rem;
+        color: #9098b8;
+        overflow: hidden;
+    }
+
+    .mk2__header {
+        display: flex;
+        align-items: center;
+        padding: 0 1.5rem;
+        height: 52px;
+        flex-shrink: 0;
+        border-bottom: 1px solid #1a1d24;
+        gap: 0.75rem;
+    }
+
+    .mk2__logo {
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: #c8ff00;
+    }
+
+    .mk2__page-title {
+        flex: 1;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #e4e6f0;
+        text-align: center;
+    }
+
+    .mk2__syncing-badge {
+        display: flex;
+        align-items: center;
+        gap: 0.35rem;
+        font-family: var(--font-mono);
+        font-size: 0.6rem;
+        color: #c8ff00;
+        background: rgba(200, 255, 0, 0.06);
+        border: 1px solid rgba(200, 255, 0, 0.15);
+        border-radius: 99px;
+        padding: 0.2rem 0.6rem;
+    }
+
+    .mk2__syncing-dot {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: #c8ff00;
+        flex-shrink: 0;
+        animation: mk2-pulse 1.6s ease-in-out infinite;
+    }
+
+    /* Status cards */
+    .mk2__status-row {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.75rem;
+        padding: 1rem 1.5rem;
+        flex-shrink: 0;
+        border-bottom: 1px solid #1a1d24;
+    }
+
+    .mk2__status-card {
+        background: #1a1d24;
+        border-radius: 8px;
+        padding: 0.9rem 1rem;
+        border-top: 3px solid transparent;
+    }
+
+    .mk2__status-card--live {
+        border-top-color: #22c55e;
+    }
+    .mk2__status-card--syncing {
+        border-top-color: #c8ff00;
+    }
+    .mk2__status-card--review {
+        border-top-color: #f59e0b;
+    }
+
+    .mk2__status-count {
+        display: flex;
+        align-items: center;
+        gap: 0.45rem;
+        font-family: var(--font-display);
+        font-size: 1.65rem;
+        font-weight: 400;
+        color: #e4e6f0;
+        line-height: 1;
+        margin-bottom: 0.3rem;
+    }
+
+    .mk2__status-pulse-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: #c8ff00;
+        flex-shrink: 0;
+        animation: mk2-pulse 1.6s ease-in-out infinite;
+    }
+
+    .mk2__status-label {
+        font-family: var(--font-mono);
+        font-size: 0.58rem;
+        color: #2e3248;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+    }
+
+    /* Feature grid */
+    .mk2__grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.65rem;
+        padding: 1rem 1.5rem;
+        flex: 1;
+        overflow-y: auto;
+        scrollbar-width: thin;
+        scrollbar-color: #1a1d24 transparent;
+        align-content: start;
+    }
+
+    .mk2__card {
+        background: #1a1d24;
+        border-radius: 8px;
+        padding: 0.85rem 0.9rem 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .mk2__card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .mk2__card-name {
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: #d8daf0;
+        line-height: 1.2;
+    }
+
+    .mk2__card-version-row {
+        display: flex;
+        align-items: center;
+        gap: 0.45rem;
+    }
+
+    .mk2__card-version {
+        font-family: var(--font-mono);
+        font-size: 0.58rem;
+        color: #3a3d52;
+    }
+
+    .mk2__card-pill {
+        font-family: var(--font-mono);
+        font-size: 0.55rem;
+        border-radius: 99px;
+        padding: 0.12rem 0.45rem;
+        font-weight: 500;
+    }
+
+    .mk2__card-pill--live {
+        color: #22c55e;
+        background: rgba(34, 197, 94, 0.09);
+        border: 1px solid rgba(34, 197, 94, 0.18);
+    }
+
+    .mk2__card-pill--syncing {
+        color: #c8ff00;
+        background: rgba(200, 255, 0, 0.07);
+        border: 1px solid rgba(200, 255, 0, 0.15);
+    }
+
+    .mk2__card-pill--review {
+        color: #f59e0b;
+        background: rgba(245, 158, 11, 0.08);
+        border: 1px solid rgba(245, 158, 11, 0.18);
+    }
+
+    .mk2__card-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 0.75rem;
+    }
+
+    .mk2__card-revisions {
+        font-family: var(--font-mono);
+        font-size: 0.58rem;
+        color: #2e3248;
+    }
+
+    .mk2__card-time {
+        font-family: var(--font-mono);
+        font-size: 0.58rem;
+        color: #2e3248;
+    }
+
+    .mk2__card-accent {
+        height: 2px;
+        width: 100%;
+        margin-top: auto;
+        flex-shrink: 0;
+    }
+
+    .mk2__card-accent--live {
+        background: rgba(34, 197, 94, 0.35);
+    }
+    .mk2__card-accent--syncing {
+        background: rgba(200, 255, 0, 0.35);
+    }
+    .mk2__card-accent--review {
+        background: rgba(245, 158, 11, 0.35);
+    }
+
+    /* ══════════════════════════════════════════════════════════ */
+    /* V3 - MUX-STYLE: ACTIVITY TIMELINE                         */
+    /* ══════════════════════════════════════════════════════════ */
+
+    .mk3__app {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        background: #080808;
+        font-family: var(--font-body);
+        font-size: 0.875rem;
+        color: #9090a0;
+        overflow: hidden;
+    }
+
+    .mk3__header {
+        display: flex;
+        align-items: center;
+        padding: 0 2rem;
+        height: 56px;
+        flex-shrink: 0;
+        border-bottom: 1px solid #141414;
+        gap: 0.75rem;
+    }
+
+    .mk3__logo {
+        font-family: var(--font-mono);
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: #c8ff00;
+    }
+
+    .mk3__page-title {
+        flex: 1;
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: #e0e0e8;
+        letter-spacing: 0.02em;
+    }
+
+    .mk3__summary-pill {
+        font-family: var(--font-mono);
+        font-size: 0.6rem;
+        color: #484858;
+        background: #111111;
+        border: 1px solid #1e1e1e;
+        border-radius: 99px;
+        padding: 0.22rem 0.65rem;
+    }
+
+    /* Timeline */
+    .mk3__timeline {
+        flex: 1;
+        overflow-y: auto;
+        scrollbar-width: thin;
+        scrollbar-color: #141414 transparent;
+        padding: 1.5rem 2rem 1.5rem 2.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .mk3__event {
+        display: flex;
+        gap: 1.25rem;
+        min-height: 80px;
+    }
+
+    .mk3__spine-col {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex-shrink: 0;
+        width: 14px;
+    }
+
+    .mk3__dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        flex-shrink: 0;
+        z-index: 1;
+        margin-top: 0.2rem;
+    }
+
+    .mk3__dot--live {
+        background: #22c55e;
+        box-shadow: 0 0 6px rgba(34, 197, 94, 0.4);
+    }
+    .mk3__dot--syncing {
+        background: #c8ff00;
+        box-shadow: 0 0 8px rgba(200, 255, 0, 0.5);
+        animation: mk3-pulse 1.6s ease-in-out infinite;
+    }
+    .mk3__dot--review {
+        background: #f59e0b;
+        box-shadow: 0 0 6px rgba(245, 158, 11, 0.4);
+    }
+
+    .mk3__spine-line {
+        flex: 1;
+        width: 1px;
+        background: #1e1e1e;
+        margin-top: 4px;
+    }
+
+    .mk3__spine-line--last {
+        background: transparent;
+    }
+
+    .mk3__event-body {
+        flex: 1;
+        padding-top: 0.1rem;
+        padding-bottom: 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+    }
+
+    .mk3__event-top {
+        display: flex;
+        align-items: baseline;
+        gap: 0.65rem;
+    }
+
+    .mk3__event-name {
+        font-size: 0.88rem;
+        font-weight: 500;
+        color: #d8d8e8;
+    }
+
+    .mk3__event-version {
+        font-family: var(--font-mono);
+        font-size: 0.62rem;
+        color: #2e2e42;
+        background: #111111;
+        border: 1px solid #1e1e1e;
+        border-radius: 3px;
+        padding: 0.08rem 0.35rem;
+    }
+
+    .mk3__event-detail {
+        font-family: var(--font-mono);
+        font-size: 0.62rem;
+        color: #3a3a52;
+        line-height: 1.5;
+    }
+
+    /* ── Animations ─────────────────────────────────────────── */
+
+    @keyframes mk1-pulse {
+        0%,
+        100% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0.3;
+        }
+    }
+
+    @keyframes mk2-pulse {
+        0%,
+        100% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0.25;
+        }
+    }
+
+    @keyframes mk3-pulse {
+        0%,
+        100% {
+            opacity: 1;
+            box-shadow: 0 0 8px rgba(200, 255, 0, 0.5);
+        }
+        50% {
+            opacity: 0.6;
+            box-shadow: 0 0 4px rgba(200, 255, 0, 0.2);
+        }
+    }
+</style>

@@ -1,0 +1,29 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Nav from "../components/Nav.astro";
+import ChatHero from "../components/ChatHero.astro";
+import ChatMetricsBar from "../components/ChatMetricsBar.astro";
+import ChatProblem from "../components/ChatProblem.astro";
+import ChatHowItWorks from "../components/ChatHowItWorks.astro";
+import ChatDemoPreview from "../components/ChatDemoPreview.astro";
+import ChatROI from "../components/ChatROI.astro";
+import ChatFinalCTA from "../components/ChatFinalCTA.astro";
+import ChatWaitlistModal from "../components/ChatWaitlistModal.astro";
+---
+
+<Layout
+    title="Hitch | Team chat built for getting things done"
+    bodyClass="page-chat"
+>
+    <Nav waitlistModal={true} />
+    <main>
+        <ChatHero />
+        <ChatMetricsBar />
+        <ChatProblem />
+        <ChatHowItWorks />
+        <!-- <ChatDemoPreview /> -->
+        <ChatROI />
+        <ChatFinalCTA />
+        <ChatWaitlistModal />
+    </main>
+</Layout>

@@ -1,0 +1,487 @@
+---
+const { lightMode = true } = Astro.props;
+---
+
+<div class:list={["app", { "app--light": lightMode }]}>
+    <!-- Top bar -->
+    <div class="app__topbar">
+        <span class="app__logo">◈ Hitch</span>
+        <nav class="app__nav">
+            <span>Guides</span>
+            <span>Integrations</span>
+            <span>Settings</span>
+        </nav>
+        <button class="app__new">+ New Guide</button>
+    </div>
+
+    <!-- Scrollable guide list -->
+    <div class="app__main">
+        <!-- In-progress section -->
+        <p class="app__section">
+            In Progress <span class="app__count">2</span>
+        </p>
+        <div class="app__grid app__grid--progress">
+            <div class="app__card app__card--progress">
+                <div class="app__card-header">
+                    <span class="app__pulse-dot"></span>
+                    <span class="app__status">Detecting changes…</span>
+                </div>
+                <p class="app__card-title">Voice &amp; Audio Features</p>
+                <p class="app__card-meta">auto-syncing · just now</p>
+            </div>
+
+            <div class="app__card app__card--progress">
+                <div class="app__card-header">
+                    <span class="app__pulse-dot"></span>
+                    <span class="app__status">Writing sections…</span>
+                </div>
+                <p class="app__card-title">Mobile App Integration</p>
+                <p class="app__card-meta">auto-syncing · 2 min ago</p>
+            </div>
+        </div>
+
+        <!-- Published section -->
+        <p class="app__section">Published <span class="app__count">10</span></p>
+        <div class="app__grid app__grid--published">
+            <div class="app__card app__card--published">
+                <p class="app__card-title">Getting Started</p>
+                <p class="app__card-time">auto-synced · 2 days ago</p>
+                <a class="app__view-link">View →</a>
+            </div>
+
+            <div class="app__card app__card--published">
+                <p class="app__card-title">Managing Users &amp; Roles</p>
+                <p class="app__card-time">auto-synced · 5 days ago</p>
+                <a class="app__view-link">View →</a>
+            </div>
+
+            <div class="app__card app__card--published">
+                <p class="app__card-title">Integrating Payments</p>
+                <p class="app__card-time">auto-synced · 1 wk ago</p>
+                <a class="app__view-link">View →</a>
+            </div>
+
+            <div class="app__card app__card--published">
+                <p class="app__card-title">Security &amp; Access</p>
+                <p class="app__card-time">auto-synced · 2 wks ago</p>
+                <a class="app__view-link">View →</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Command / config area -->
+    <div class="app__command">
+        <p class="app__command-label">New guide</p>
+        <!-- Config panel -->
+        <div class="app__config">
+            <div class="app__config-row">
+                <div class="app__select-wrap">
+                    <label class="app__select-label">Guide type</label>
+                    <div class="app__select">
+                        Release notes <span class="app__caret">▾</span>
+                    </div>
+                </div>
+                <div class="app__select-wrap">
+                    <label class="app__select-label">Audience</label>
+                    <div class="app__select">
+                        Developers <span class="app__caret">▾</span>
+                    </div>
+                </div>
+                <div class="app__select-wrap">
+                    <label class="app__select-label">Tone</label>
+                    <div class="app__select">
+                        Technical <span class="app__caret">▾</span>
+                    </div>
+                </div>
+                <div class="app__select-wrap">
+                    <label class="app__select-label">Depth</label>
+                    <div class="app__select">
+                        Standard <span class="app__caret">▾</span>
+                    </div>
+                </div>
+            </div>
+            <button class="app__generate">Generate Guide →</button>
+        </div>
+
+        <!-- Chat bar -->
+        <div class="app__chat">
+            <span class="app__avatar">M</span>
+            <span class="app__chat-text"
+                >Create a guide for our new voice feature</span
+            >
+            <button class="app__send">↑</button>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* ── Scoped tokens ────────────────────────────────────────── */
+    .app {
+        /* dark defaults */
+        --_bg: #080808;
+        --_surface: #0f0f0f;
+        --_divider: #252525;
+        --_text: #f0ede8;
+        --_text-muted: #8a8680;
+        --_topbar: #111111;
+        --_config-bg: #111111;
+        --_progress-border: rgba(200, 255, 0, 0.2);
+        --_progress-bg: rgba(200, 255, 0, 0.03);
+        --_accent-text: var(--accent); /* #c8ff00 - readable on dark */
+    }
+
+    .app--light {
+        --_bg: #ffffff;
+        --_surface: #f5f5f5;
+        --_divider: #e2e2e2;
+        --_text: #111111;
+        --_text-muted: #666666;
+        --_topbar: #f0f0f0;
+        --_config-bg: #f0f0f0;
+        --_progress-border: rgba(100, 170, 0, 0.3);
+        --_progress-bg: rgba(100, 170, 0, 0.06);
+        --_accent-text: #3a7c00; /* ~7:1 contrast on white - WCAG AA */
+    }
+
+    /* ── Container ────────────────────────────────────────────── */
+    .app {
+        height: 560px;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid var(--_divider);
+        border-radius: 8px;
+        overflow: hidden;
+        background: var(--_bg);
+        font-family: var(--font-body);
+        font-size: var(--text-sm);
+        color: var(--_text);
+    }
+
+    /* ── Top bar ──────────────────────────────────────────────── */
+    .app__topbar {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        padding: 0 1.25rem;
+        height: 48px;
+        flex-shrink: 0;
+        background: var(--_topbar);
+        border-bottom: 1px solid var(--_divider);
+    }
+
+    .app__logo {
+        font-family: var(--font-mono);
+        font-size: var(--text-sm);
+        color: var(--_accent-text);
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        white-space: nowrap;
+    }
+
+    .app__nav {
+        display: flex;
+        gap: 1.25rem;
+        flex: 1;
+    }
+
+    .app__nav span {
+        font-size: var(--text-xs);
+        color: var(--_text-muted);
+        cursor: pointer;
+        white-space: nowrap;
+    }
+
+    .app__nav span:first-child {
+        color: var(--_text);
+    }
+
+    .app__new {
+        font-family: var(--font-body);
+        font-size: var(--text-xs);
+        font-weight: 600;
+        padding: 0.35rem 0.85rem;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        color: #080808;
+        background: var(--accent);
+        white-space: nowrap;
+        transition:
+            border-color 0.15s,
+            color 0.15s;
+    }
+
+    /* ── Main scrollable area ─────────────────────────────────── */
+    .app__main {
+        flex: 1;
+        overflow-y: auto;
+        padding: 1.25rem 1.25rem 0.75rem;
+        scrollbar-width: thin;
+        scrollbar-color: var(--_divider) transparent;
+    }
+
+    .app__section {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: var(--text-xs);
+        font-family: var(--font-mono);
+        color: var(--_text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin-bottom: 0.75rem;
+    }
+
+    .app__section + .app__grid {
+        margin-bottom: 1.25rem;
+    }
+
+    .app__count {
+        background: var(--_divider);
+        color: var(--_text-muted);
+        border-radius: 99px;
+        padding: 0 0.4rem;
+        font-size: 0.65rem;
+        line-height: 1.6;
+    }
+
+    /* ── Grids ────────────────────────────────────────────────── */
+    .app__grid {
+        display: grid;
+        gap: 0.75rem;
+    }
+
+    .app__grid--progress {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .app__grid--published {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    /* ── Cards ────────────────────────────────────────────────── */
+    .app__card {
+        border-radius: 6px;
+        padding: 0.85rem 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+    }
+
+    .app__card--progress {
+        border: 1px solid var(--_progress-border);
+        background: var(--_progress-bg);
+    }
+
+    .app__card--published {
+        border: 1px solid var(--_divider);
+        background: var(--_surface);
+    }
+
+    .app__card-header {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 0.25rem;
+    }
+
+    /* Pulsing dot */
+    .app__pulse-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--_accent-text);
+        flex-shrink: 0;
+        animation: pulse-dot 1.6s ease-in-out infinite;
+    }
+
+    .app__status {
+        font-size: 0.7rem;
+        font-family: var(--font-mono);
+        color: var(--_accent-text);
+        opacity: 0.85;
+    }
+
+    .app__card-title {
+        font-size: var(--text-sm);
+        font-weight: 500;
+        line-height: 1.3;
+        color: var(--_text);
+    }
+
+    .app__card-meta {
+        font-family: var(--font-mono);
+        font-size: 0.7rem;
+        color: var(--_text-muted);
+    }
+
+    .app__card-time {
+        font-family: var(--font-mono);
+        font-size: 0.65rem;
+        color: var(--_text-muted);
+        margin-top: 0.15rem;
+    }
+
+    .app__view-link {
+        font-family: var(--font-mono);
+        font-size: 0.65rem;
+        color: var(--_accent-text);
+        opacity: 0.7;
+        margin-top: auto;
+        cursor: pointer;
+    }
+
+    /* ── Command / config area ────────────────────────────────── */
+    .app__command {
+        flex-shrink: 0;
+        border-top: 1px solid var(--_divider);
+    }
+
+    .app__command-label {
+        padding: 0.6rem 1.25rem 0;
+        font-size: var(--text-xs);
+        font-family: var(--font-mono);
+        color: var(--_text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+    }
+
+    /* Config panel */
+    .app__config {
+        background: var(--_config-bg);
+        border-bottom: 1px solid var(--_divider);
+        padding: 0.85rem 1.25rem;
+        display: flex;
+        align-items: flex-end;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .app__config-row {
+        display: flex;
+        gap: 0.75rem;
+        flex: 1;
+        flex-wrap: wrap;
+    }
+
+    .app__select-wrap {
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+        min-width: 110px;
+    }
+
+    .app__select-label {
+        font-size: 0.65rem;
+        color: var(--_text-muted);
+        font-family: var(--font-mono);
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+    }
+
+    .app__select {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.5rem;
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
+        color: var(--_text);
+        border: 1px solid var(--_divider);
+        border-radius: 4px;
+        padding: 0.3rem 0.6rem;
+        background: var(--_bg);
+        white-space: nowrap;
+    }
+
+    .app__caret {
+        color: var(--_text-muted);
+        font-size: 0.6rem;
+    }
+
+    .app__generate {
+        font-family: var(--font-body);
+        font-size: var(--text-xs);
+        font-weight: 600;
+        padding: 0.45rem 1rem;
+        background: var(--accent);
+        color: #080808;
+        border-radius: 4px;
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    /* Chat bar */
+    .app__chat {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.75rem 1.25rem;
+        background: var(--_surface);
+    }
+
+    .app__avatar {
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background: var(--_divider);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.7rem;
+        font-weight: 600;
+        color: var(--_text-muted);
+        flex-shrink: 0;
+    }
+
+    .app__chat-text {
+        flex: 1;
+        font-size: var(--text-sm);
+        color: var(--_text-muted);
+        font-style: italic;
+    }
+
+    .app__send {
+        width: 28px;
+        height: 28px;
+        border-radius: 4px;
+        background: var(--accent);
+        color: #080808;
+        font-size: 0.85rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    /* ── Responsive ───────────────────────────────────────────── */
+    @media (max-width: 760px) {
+        .app__grid--published {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .app__config-row {
+            gap: 0.5rem;
+        }
+
+        .app__select-wrap {
+            min-width: 90px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .app__grid--progress {
+            grid-template-columns: 1fr;
+        }
+
+        .app__config {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .app__generate {
+            width: 100%;
+            text-align: center;
+        }
+    }
+</style>

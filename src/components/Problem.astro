@@ -1,179 +1,182 @@
 ---
 const problems = [
-  "Engineers interrupt their sprint to write what they just built.",
-  "Docs go stale within days — sometimes hours — of publishing.",
-  "Release notes are an afterthought, not a deliverable.",
-  "Support teams answer questions the docs should have answered.",
+    "Engineers interrupt their sprint to write what they just built.",
+    "Docs go stale within days - sometimes hours - of publishing.",
+    "Release notes are an afterthought, not a deliverable.",
+    "Support teams answer questions the docs should have answered.",
 ];
 ---
 
 <section class="problem">
-  <div class="problem__inner">
+    <div class="problem__inner">
+        <div class="problem__label-col" aria-hidden="true">
+            <span class="problem__label">The problem</span>
+        </div>
 
-    <div class="problem__label-col" aria-hidden="true">
-      <span class="problem__label">The problem</span>
+        <div class="problem__content">
+            <h2 class="problem__heading">
+                Documentation decays the moment<br />
+                <em>you write it.</em>
+            </h2>
+
+            <ul class="problem__list" id="problem-list">
+                {
+                    problems.map((text) => (
+                        <li class="problem__item">
+                            <span
+                                class="problem__item-line"
+                                aria-hidden="true"
+                            />
+                            <p>{text}</p>
+                        </li>
+                    ))
+                }
+            </ul>
+        </div>
     </div>
-
-    <div class="problem__content">
-      <h2 class="problem__heading">
-        Documentation decays the moment<br />
-        <em>you write it.</em>
-      </h2>
-
-      <ul class="problem__list" id="problem-list">
-        {problems.map((text) => (
-          <li class="problem__item">
-            <span class="problem__item-line" aria-hidden="true"></span>
-            <p>{text}</p>
-          </li>
-        ))}
-      </ul>
-    </div>
-
-  </div>
 </section>
 
 <script>
-  const items = document.querySelectorAll<HTMLElement>('.problem__item');
+    const items = document.querySelectorAll<HTMLElement>(".problem__item");
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-active');
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    { threshold: 0.25 }
-  );
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("is-active");
+                    observer.unobserve(entry.target);
+                }
+            });
+        },
+        { threshold: 0.25 },
+    );
 
-  items.forEach((item) => observer.observe(item));
+    items.forEach((item) => observer.observe(item));
 </script>
 
 <style>
-  .problem {
-    padding: 7rem var(--gutter);
-    border-top: 1px solid var(--divider);
-  }
-
-  .problem__inner {
-    max-width: var(--max-w);
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 180px 1fr;
-    gap: 4rem;
-    align-items: start;
-  }
-
-  .problem__label-col {
-    padding-top: 0.5rem;
-  }
-
-  .problem__label {
-    display: block;
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    color: var(--text-muted);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    writing-mode: vertical-lr;
-    transform: rotate(180deg);
-  }
-
-  .problem__heading {
-    font-family: var(--font-display);
-    font-size: var(--text-3xl);
-    font-weight: 400;
-    line-height: 1.12;
-    letter-spacing: -0.02em;
-    margin-bottom: 3.5rem;
-    max-width: 20ch;
-  }
-
-  .problem__heading em {
-    font-style: italic;
-    color: var(--text-muted);
-  }
-
-  .problem__list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
-
-  .problem__item {
-    display: flex;
-    align-items: stretch;
-    gap: 1.75rem;
-    padding: 1.75rem 0;
-    border-bottom: 1px solid var(--divider);
-    position: relative;
-  }
-
-  .problem__item:first-child {
-    border-top: 1px solid var(--divider);
-  }
-
-  .problem__item-line {
-    flex-shrink: 0;
-    width: 2px;
-    background: var(--divider);
-    border-radius: 2px;
-    position: relative;
-    overflow: hidden;
-    transition: none;
-  }
-
-  .problem__item-line::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: var(--accent);
-    transform-origin: top center;
-    transform: scaleY(0);
-    transition: transform 0.5s var(--ease-out);
-  }
-
-  .problem__item.is-active .problem__item-line::after {
-    transform: scaleY(1);
-  }
-
-  .problem__item p {
-    font-size: var(--text-lg);
-    color: var(--text-muted);
-    line-height: 1.6;
-    padding: 0.15rem 0;
-    transition: color 0.4s var(--ease-out);
-  }
-
-  .problem__item.is-active p {
-    color: var(--text);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .problem__item-line::after {
-      transition: none;
+    .problem {
+        padding: 7rem var(--gutter);
+        border-top: 1px solid var(--divider);
     }
 
-    .problem__item p {
-      transition: none;
-    }
-
-    .problem__item.is-active .problem__item-line::after {
-      transform: scaleY(1);
-    }
-  }
-
-  @media (max-width: 760px) {
     .problem__inner {
-      grid-template-columns: 1fr;
-      gap: 2rem;
+        max-width: var(--max-w);
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 180px 1fr;
+        gap: 4rem;
+        align-items: start;
     }
 
     .problem__label-col {
-      display: none;
+        padding-top: 0.5rem;
     }
-  }
+
+    .problem__label {
+        display: block;
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
+        color: var(--text-muted);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        writing-mode: vertical-lr;
+        transform: rotate(180deg);
+    }
+
+    .problem__heading {
+        font-family: var(--font-display);
+        font-size: var(--text-3xl);
+        font-weight: 400;
+        line-height: 1.12;
+        letter-spacing: -0.02em;
+        margin-bottom: 3.5rem;
+        max-width: 20ch;
+    }
+
+    .problem__heading em {
+        font-style: italic;
+        color: var(--text-muted);
+    }
+
+    .problem__list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .problem__item {
+        display: flex;
+        align-items: stretch;
+        gap: 1.75rem;
+        padding: 1.75rem 0;
+        border-bottom: 1px solid var(--divider);
+        position: relative;
+    }
+
+    .problem__item:first-child {
+        border-top: 1px solid var(--divider);
+    }
+
+    .problem__item-line {
+        flex-shrink: 0;
+        width: 2px;
+        background: var(--divider);
+        border-radius: 2px;
+        position: relative;
+        overflow: hidden;
+        transition: none;
+    }
+
+    .problem__item-line::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: var(--accent);
+        transform-origin: top center;
+        transform: scaleY(0);
+        transition: transform 0.5s var(--ease-out);
+    }
+
+    .problem__item.is-active .problem__item-line::after {
+        transform: scaleY(1);
+    }
+
+    .problem__item p {
+        font-size: var(--text-lg);
+        color: var(--text-muted);
+        line-height: 1.6;
+        padding: 0.15rem 0;
+        transition: color 0.4s var(--ease-out);
+    }
+
+    .problem__item.is-active p {
+        color: var(--text);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .problem__item-line::after {
+            transition: none;
+        }
+
+        .problem__item p {
+            transition: none;
+        }
+
+        .problem__item.is-active .problem__item-line::after {
+            transform: scaleY(1);
+        }
+    }
+
+    @media (max-width: 760px) {
+        .problem__inner {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .problem__label-col {
+            display: none;
+        }
+    }
 </style>

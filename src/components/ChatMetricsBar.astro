@@ -1,0 +1,127 @@
+---
+---
+
+<section class="chat-metrics" aria-label="Key metrics">
+  <div class="chat-metrics__overflow">
+    <ul class="chat-metrics__track" id="chat-metrics-track">
+      <!-- Set 1 (visible) -->
+      <li class="chat-metrics__item">
+        <span class="chat-metrics__value">83%</span>
+        <span class="chat-metrics__label">less notification noise</span>
+      </li>
+      <li class="chat-metrics__sep" aria-hidden="true">//</li>
+      <li class="chat-metrics__item">
+        <span class="chat-metrics__value">0 sec</span>
+        <span class="chat-metrics__label">to find any message</span>
+      </li>
+      <li class="chat-metrics__sep" aria-hidden="true">//</li>
+      <li class="chat-metrics__item">
+        <span class="chat-metrics__value">100%</span>
+        <span class="chat-metrics__label">decisions captured</span>
+      </li>
+      <li class="chat-metrics__sep" aria-hidden="true">//</li>
+      <li class="chat-metrics__item">
+        <span class="chat-metrics__value">Always</span>
+        <span class="chat-metrics__label">in context</span>
+      </li>
+      <li class="chat-metrics__sep chat-metrics__sep--wide" aria-hidden="true">///</li>
+
+      <!-- Set 2 (clone for seamless loop) -->
+      <li class="chat-metrics__item chat-metrics__clone" aria-hidden="true">
+        <span class="chat-metrics__value">83%</span>
+        <span class="chat-metrics__label">less notification noise</span>
+      </li>
+      <li class="chat-metrics__sep chat-metrics__clone" aria-hidden="true">//</li>
+      <li class="chat-metrics__item chat-metrics__clone" aria-hidden="true">
+        <span class="chat-metrics__value">0 sec</span>
+        <span class="chat-metrics__label">to find any message</span>
+      </li>
+      <li class="chat-metrics__sep chat-metrics__clone" aria-hidden="true">//</li>
+      <li class="chat-metrics__item chat-metrics__clone" aria-hidden="true">
+        <span class="chat-metrics__value">100%</span>
+        <span class="chat-metrics__label">decisions captured</span>
+      </li>
+      <li class="chat-metrics__sep chat-metrics__clone" aria-hidden="true">//</li>
+      <li class="chat-metrics__item chat-metrics__clone" aria-hidden="true">
+        <span class="chat-metrics__value">Always</span>
+        <span class="chat-metrics__label">in context</span>
+      </li>
+      <li class="chat-metrics__sep chat-metrics__sep--wide chat-metrics__clone" aria-hidden="true">///</li>
+    </ul>
+  </div>
+</section>
+
+<style>
+  .chat-metrics {
+    border-top: 1px solid var(--divider);
+    border-bottom: 1px solid var(--divider);
+    background: var(--surface);
+    padding: 2.25rem 0;
+  }
+
+  .chat-metrics__overflow {
+    overflow: hidden;
+  }
+
+  .chat-metrics__track {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+    list-style: none;
+    white-space: nowrap;
+    width: max-content;
+    animation: ticker-scroll 28s linear infinite;
+  }
+
+  .chat-metrics__track:hover {
+    animation-play-state: paused;
+  }
+
+  .chat-metrics__item {
+    display: flex;
+    align-items: baseline;
+    gap: 0.45rem;
+    font-family: var(--font-mono);
+  }
+
+  .chat-metrics__value {
+    font-size: var(--text-stat);
+    color: var(--accent);
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .chat-metrics__label {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+  }
+
+  .chat-metrics__sep {
+    font-family: var(--font-mono);
+    font-size: var(--text-2xl);
+    color: var(--divider);
+    font-weight: 700;
+    user-select: none;
+    flex-shrink: 0;
+  }
+
+  .chat-metrics__sep--wide {
+    letter-spacing: 0.1em;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .chat-metrics__track {
+      animation: none;
+      width: auto;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.5rem 2.5rem;
+      white-space: normal;
+    }
+
+    .chat-metrics__clone {
+      display: none;
+    }
+  }
+</style>

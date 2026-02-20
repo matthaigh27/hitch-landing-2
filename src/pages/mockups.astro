@@ -1,0 +1,541 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const ads = [
+  {
+    id: 'outcome',
+    label: '01 / Agent in product',
+    headline: 'Automate release notes, tutorials, and docs updates.',
+    proof: 'Computer-use agents run the flow in your app, then publish doc updates automatically.',
+  },
+  {
+    id: 'mechanism',
+    label: '02 / Mechanism',
+    headline: 'Product changes in. Published docs out.',
+    proof: 'Computer-use agents detect, write, and publish.',
+  },
+  {
+    id: 'adoption',
+    label: '03 / Adoption',
+    headline: 'Start now. CI/CD optional.',
+    proof: 'Paste release notes today. Automate fully later.',
+  },
+  {
+    id: 'maintenance',
+    label: '04 / Continuity',
+    headline: 'Not one-time generation. Continuous maintenance.',
+    proof: 'Automatic updates keep docs accurate over time.',
+  },
+];
+---
+
+<Layout title="Hitch - 1:1 Ad Mockups">
+  <main class="mockups">
+    <header class="mockups__header">
+      <p class="mockups__eyebrow">Reddit + X ad concepts</p>
+      <h1 class="mockups__title">Simple 1:1 mockups</h1>
+      <p class="mockups__sub">
+        One message per square. Built for quick scan and waitlist intent.
+      </p>
+    </header>
+
+    <section class="mockups__grid" aria-label="Ad mockup gallery">
+      {ads.map((ad) => (
+        <article class="ad-card">
+          <div class="ad-card__square">
+            <p class="ad-card__label">{ad.label}</p>
+
+            <h2 class="ad-card__headline">{ad.headline}</h2>
+            <p class="ad-card__proof">{ad.proof}</p>
+
+            {ad.id === 'outcome' && (
+              <div class="ad-card__visual ad-card__visual--agent" aria-hidden="true">
+                <div class="agent-scene">
+                  <div class="agent-scene__bar">
+                    <span class="agent-scene__dots">
+                      <span></span><span></span><span></span>
+                    </span>
+                    <span class="agent-scene__title">Your product</span>
+                    <span class="agent-scene__status">Agent active</span>
+                  </div>
+
+                  <div class="agent-scene__canvas">
+                    <div class="agent-scene__panel">
+                      <p class="panel__title">Billing settings</p>
+                      <div class="panel__row">
+                        <span>Enable annual plan</span>
+                        <span class="panel__pill">On</span>
+                      </div>
+                      <div class="panel__row">
+                        <span>Send customer notice</span>
+                        <span class="panel__pill">Checked</span>
+                      </div>
+                      <button class="panel__save">Save changes</button>
+                    </div>
+
+                    <ol class="agent-scene__steps">
+                      <li>Open settings</li>
+                      <li>Apply update</li>
+                      <li>Verify + publish docs</li>
+                    </ol>
+
+                    <span class="trace trace--a"></span>
+                    <span class="trace trace--b"></span>
+                    <span class="point point--one">1</span>
+                    <span class="point point--two">2</span>
+                    <span class="point point--three">3</span>
+                  </div>
+                </div>
+
+                <p class="agent-scene__result">Release notes + tutorials updated</p>
+              </div>
+            )}
+
+            {ad.id === 'mechanism' && (
+              <div class="ad-card__visual ad-card__visual--steps" aria-hidden="true">
+                <div class="step">
+                  <span class="step__num">01</span>
+                  <span class="step__name">Detect</span>
+                </div>
+                <div class="step">
+                  <span class="step__num">02</span>
+                  <span class="step__name">Draft</span>
+                </div>
+                <div class="step">
+                  <span class="step__num">03</span>
+                  <span class="step__name">Publish</span>
+                </div>
+              </div>
+            )}
+
+            {ad.id === 'adoption' && (
+              <div class="ad-card__visual ad-card__visual--lanes" aria-hidden="true">
+                <div class="lane">
+                  <p class="lane__title">Day 1</p>
+                  <p class="lane__text">Paste release notes</p>
+                </div>
+                <div class="lane">
+                  <p class="lane__title">Later</p>
+                  <p class="lane__text">Connect CI/CD</p>
+                </div>
+              </div>
+            )}
+
+            {ad.id === 'maintenance' && (
+              <div class="ad-card__visual ad-card__visual--timeline" aria-hidden="true">
+                <div class="checkpoint">
+                  <span class="dot"></span>
+                  <span class="week">W1</span>
+                </div>
+                <span class="line"></span>
+                <div class="checkpoint">
+                  <span class="dot"></span>
+                  <span class="week">W2</span>
+                </div>
+                <span class="line"></span>
+                <div class="checkpoint">
+                  <span class="dot dot--accent"></span>
+                  <span class="week">W4</span>
+                </div>
+              </div>
+            )}
+
+            <p class="ad-card__cta">Join waitlist -></p>
+          </div>
+        </article>
+      ))}
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .mockups {
+    min-height: 100svh;
+    padding: 4.5rem var(--gutter) 5rem;
+    background:
+      radial-gradient(circle at 16% 8%, rgba(200, 255, 0, 0.08), transparent 28%),
+      radial-gradient(circle at 84% 92%, rgba(200, 255, 0, 0.05), transparent 32%),
+      var(--bg);
+  }
+
+  .mockups__header {
+    max-width: var(--max-w);
+    margin: 0 auto 2rem;
+  }
+
+  .mockups__eyebrow {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.8rem;
+  }
+
+  .mockups__title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 1.45rem + 2.25vw, 3.25rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.65rem;
+  }
+
+  .mockups__sub {
+    max-width: 56ch;
+    color: var(--text-muted);
+    font-size: var(--text-lg);
+  }
+
+  .mockups__grid {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 1rem;
+  }
+
+  .ad-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--divider);
+    border-radius: 12px;
+    padding: 0.6rem;
+    box-shadow: 0 22px 54px rgba(0, 0, 0, 0.35);
+  }
+
+  .ad-card__square {
+    aspect-ratio: 1;
+    background: linear-gradient(160deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0));
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 10px;
+    padding: 1.2rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ad-card__label {
+    font-family: var(--font-mono);
+    font-size: 0.67rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+  }
+
+  .ad-card__headline {
+    font-family: var(--font-display);
+    font-size: clamp(1.45rem, 1.1rem + 0.95vw, 1.9rem);
+    font-weight: 400;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.7rem;
+  }
+
+  .ad-card__proof {
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+    line-height: 1.45;
+  }
+
+  .ad-card__visual {
+    margin-top: auto;
+    margin-bottom: 1rem;
+  }
+
+  .ad-card__visual--agent {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .agent-scene {
+    border: 1px solid var(--divider);
+    border-radius: 8px;
+    background: var(--surface);
+    overflow: hidden;
+  }
+
+  .agent-scene__bar {
+    height: 24px;
+    border-bottom: 1px solid var(--divider);
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0 0.45rem;
+    font-family: var(--font-mono);
+  }
+
+  .agent-scene__dots {
+    display: inline-flex;
+    gap: 0.2rem;
+  }
+
+  .agent-scene__dots span {
+    width: 4px;
+    height: 4px;
+    border-radius: 99px;
+    background: #656565;
+  }
+
+  .agent-scene__title {
+    font-size: 0.56rem;
+    color: var(--text-muted);
+  }
+
+  .agent-scene__status {
+    font-size: 0.52rem;
+    color: var(--accent);
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+
+  .agent-scene__canvas {
+    position: relative;
+    padding: 0.55rem;
+    min-height: 118px;
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 0.45rem;
+  }
+
+  .agent-scene__panel {
+    border: 1px solid var(--divider);
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.01);
+    padding: 0.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .panel__title {
+    font-family: var(--font-mono);
+    font-size: 0.55rem;
+    color: var(--text);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .panel__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    font-size: 0.56rem;
+    color: var(--text-muted);
+    line-height: 1.3;
+  }
+
+  .panel__pill {
+    border: 1px solid rgba(200, 255, 0, 0.35);
+    color: var(--accent);
+    border-radius: 999px;
+    padding: 0.08rem 0.32rem;
+    font-family: var(--font-mono);
+    font-size: 0.48rem;
+    white-space: nowrap;
+  }
+
+  .panel__save {
+    margin-top: auto;
+    border-radius: 4px;
+    border: 1px solid rgba(200, 255, 0, 0.35);
+    background: rgba(200, 255, 0, 0.08);
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 0.25rem 0.35rem;
+    text-align: center;
+  }
+
+  .agent-scene__steps {
+    list-style: none;
+    border: 1px solid var(--divider);
+    border-radius: 6px;
+    padding: 0.35rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    align-self: start;
+    background: rgba(255, 255, 255, 0.01);
+  }
+
+  .agent-scene__steps li {
+    font-family: var(--font-mono);
+    font-size: 0.5rem;
+    color: var(--text-muted);
+    line-height: 1.3;
+  }
+
+  .trace {
+    position: absolute;
+    border: 1px dashed rgba(200, 255, 0, 0.45);
+    border-bottom: none;
+    border-left: none;
+    pointer-events: none;
+  }
+
+  .trace--a {
+    top: 35px;
+    left: 112px;
+    width: 62px;
+    height: 30px;
+  }
+
+  .trace--b {
+    top: 72px;
+    left: 172px;
+    width: 48px;
+    height: 18px;
+  }
+
+  .point {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border-radius: 99px;
+    border: 1px solid rgba(200, 255, 0, 0.4);
+    background: rgba(200, 255, 0, 0.08);
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.5rem;
+    display: grid;
+    place-items: center;
+    font-weight: 700;
+  }
+
+  .point--one {
+    top: 36px;
+    left: 98px;
+  }
+
+  .point--two {
+    top: 62px;
+    left: 160px;
+  }
+
+  .point--three {
+    top: 86px;
+    left: 214px;
+  }
+
+  .agent-scene__result {
+    border: 1px solid rgba(200, 255, 0, 0.3);
+    border-radius: 6px;
+    padding: 0.35rem 0.45rem;
+    background: rgba(200, 255, 0, 0.06);
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    line-height: 1.25;
+  }
+
+  .ad-card__visual--steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.45rem;
+  }
+
+  .step {
+    border: 1px solid var(--divider);
+    background: var(--surface);
+    border-radius: 8px;
+    padding: 0.58rem 0.45rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    align-items: center;
+  }
+
+  .step__num {
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    color: var(--text-muted);
+  }
+
+  .step__name {
+    font-size: 0.72rem;
+    color: var(--text);
+  }
+
+  .ad-card__visual--lanes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+  }
+
+  .lane {
+    border: 1px solid var(--divider);
+    border-radius: 8px;
+    background: var(--surface);
+    padding: 0.65rem 0.55rem;
+  }
+
+  .lane__title {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 0.35rem;
+  }
+
+  .lane__text {
+    font-size: 0.74rem;
+    color: var(--text-muted);
+    line-height: 1.35;
+  }
+
+  .ad-card__visual--timeline {
+    display: grid;
+    grid-template-columns: auto 1fr auto 1fr auto;
+    gap: 0.35rem;
+    align-items: center;
+  }
+
+  .checkpoint {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: var(--text-muted);
+  }
+
+  .dot--accent {
+    background: var(--accent);
+  }
+
+  .week {
+    font-family: var(--font-mono);
+    font-size: 0.56rem;
+    color: var(--text-muted);
+  }
+
+  .line {
+    height: 1px;
+    width: 100%;
+    background: var(--divider);
+  }
+
+  .ad-card__cta {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  @media (max-width: 720px) {
+    .mockups {
+      padding-top: 3.5rem;
+    }
+  }
+</style>

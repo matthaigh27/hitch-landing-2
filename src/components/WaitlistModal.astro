@@ -1,0 +1,578 @@
+---
+
+---
+
+<div
+    class="modal-backdrop"
+    id="waitlist-modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modal-title"
+    hidden
+>
+    <div class="modal">
+        <button class="modal__close" id="modal-close" aria-label="Close">
+            <svg
+                width="18"
+                height="18"
+                viewBox="0 0 18 18"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+                <path
+                    d="M1 1L17 17M17 1L1 17"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                    stroke-linecap="round"></path>
+            </svg>
+        </button>
+
+        <p class="modal__eyebrow">Early Access</p>
+        <h2 class="modal__title" id="modal-title">Join the Waitlist</h2>
+        <p class="modal__sub">
+            Tell us a bit about what you're building and we'll reach out when
+            your spot is ready.
+        </p>
+
+        <form class="modal__form" id="modal-waitlist-form" novalidate>
+            <!-- Work email -->
+            <div class="modal__field">
+                <label class="modal__label" for="modal-email"
+                    >Work email <span class="modal__required" aria-hidden="true"
+                        >*</span
+                    ></label
+                >
+                <input
+                    type="email"
+                    id="modal-email"
+                    name="email"
+                    placeholder="you@company.com"
+                    class="modal__input"
+                    required
+                    autocomplete="email"
+                />
+            </div>
+
+            <!-- Interests -->
+            <div class="modal__field">
+                <label class="modal__label" for="modal-interests"
+                    >What are you most interested in automating?</label
+                >
+                <select
+                    id="modal-interests"
+                    name="interests"
+                    class="modal__select"
+                >
+                    <option value="" disabled selected>Select an option…</option
+                    >
+                    <option value="release-notes">Release Notes</option>
+                    <option value="marketing-materials"
+                        >Marketing Materials</option
+                    >
+                    <option value="technical-documentation"
+                        >Technical Documentation</option
+                    >
+                    <option value="video-walkthroughs"
+                        >Video Walkthroughs</option
+                    >
+                    <option value="internal-comms">Internal Comms</option>
+                    <option value="sops">SOPs</option>
+                    <option value="onboarding">Onboarding</option>
+                </select>
+            </div>
+
+            <!-- Purchase intent -->
+            <div class="modal__field">
+                <fieldset class="modal__fieldset">
+                    <legend class="modal__label"
+                        >To the best of your knowledge, would your team pay for
+                        a tool that handled the above automatically?</legend
+                    >
+                    <div class="modal__chips">
+                        <label class="modal__chip">
+                            <input type="radio" name="intent" value="yes" />
+                            Yes, definitely
+                        </label>
+                        <label class="modal__chip">
+                            <input
+                                type="radio"
+                                name="intent"
+                                value="probably"
+                            />
+                            Probably
+                        </label>
+                        <label class="modal__chip">
+                            <input
+                                type="radio"
+                                name="intent"
+                                value="not-sure"
+                            />
+                            Not sure
+                        </label>
+                        <label class="modal__chip">
+                            <input type="radio" name="intent" value="no" />
+                            No
+                        </label>
+                    </div>
+                </fieldset>
+            </div>
+
+            <button type="submit" class="modal__submit">
+                Join
+                <span class="modal__submit-arrow" aria-hidden="true">→</span>
+            </button>
+            <!-- <p class="modal__consent">
+                No spam, ever. Unsubscribe in one click.
+            </p> -->
+        </form>
+
+        <div
+            class="modal__success"
+            id="modal-success"
+            aria-live="polite"
+            aria-atomic="true"
+            hidden
+        >
+            <svg
+                class="modal__success-icon"
+                width="40"
+                height="40"
+                viewBox="0 0 40 40"
+                fill="none"
+            >
+                <circle
+                    cx="20"
+                    cy="20"
+                    r="19"
+                    stroke="var(--accent)"
+                    stroke-width="1.5"></circle>
+                <path
+                    d="M12 20.5L17.5 26L28 15"
+                    stroke="var(--accent)"
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"></path>
+            </svg>
+            <p class="modal__success-title">You're on the list.</p>
+            <p class="modal__success-sub">We'll be in touch soon.</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    import { actions } from 'astro:actions';
+
+    const modal = document.getElementById("waitlist-modal") as HTMLElement;
+    const closeBtn = document.getElementById("modal-close");
+    const form = document.getElementById(
+        "modal-waitlist-form",
+    ) as HTMLFormElement | null;
+    const successEl = document.getElementById("modal-success");
+
+    function openModal() {
+        modal.hidden = false;
+        document.body.style.overflow = "hidden";
+        requestAnimationFrame(() => {
+            (modal.querySelector("input") as HTMLInputElement | null)?.focus();
+        });
+    }
+
+    function closeModal() {
+        modal.hidden = true;
+        document.body.style.overflow = "";
+    }
+
+    document.addEventListener("click", (e) => {
+        const target = e.target as HTMLElement;
+        if (target.closest("[data-open-waitlist]")) openModal();
+    });
+
+    closeBtn?.addEventListener("click", closeModal);
+
+    modal.addEventListener("click", (e) => {
+        if (e.target === modal) closeModal();
+    });
+
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && !modal.hidden) closeModal();
+    });
+
+    form?.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const emailInput = form.querySelector<HTMLInputElement>("#modal-email");
+        if (!emailInput?.value) {
+            emailInput?.focus();
+            return;
+        }
+
+        const submitBtn = form.querySelector<HTMLButtonElement>(".modal__submit");
+        if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.textContent = "Submitting…";
+        }
+
+        const interests = form.querySelector<HTMLSelectElement>("#modal-interests")?.value;
+        const intent = form.querySelector<HTMLInputElement>('input[name="intent"]:checked')?.value;
+
+        const { error } = await actions.submitWaitlist({
+            email: emailInput.value,
+            interests,
+            intent,
+        });
+
+        if (error) {
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'Join the Waitlist <span aria-hidden="true">→</span>';
+            }
+            return;
+        }
+
+        showSuccess();
+    });
+
+    function showSuccess() {
+        if (!form || !successEl) return;
+        form.hidden = true;
+        successEl.hidden = false;
+        const email = form.querySelector<HTMLInputElement>("#modal-email")?.value;
+        if (email) {
+            (window as any).rdt?.("init", "a2_ijiwg4haitrc", { email });
+            (window as any).rdt?.("track", "Lead");
+        }
+    }
+</script>
+
+<style>
+    .modal-backdrop {
+        position: fixed;
+        inset: 0;
+        z-index: 500;
+        background: rgba(0, 0, 0, 0.72);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1.5rem;
+        animation: fade-in 0.18s var(--ease-out);
+    }
+
+    .modal-backdrop[hidden] {
+        display: none;
+    }
+
+    @keyframes fade-in {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    .modal {
+        position: relative;
+        background: #0f0f0f;
+        border: 1px solid var(--divider);
+        border-radius: 16px;
+        padding: 2.5rem;
+        width: 100%;
+        max-width: 480px;
+        animation: slide-up 0.22s var(--ease-out);
+    }
+
+    @keyframes slide-up {
+        from {
+            opacity: 0;
+            transform: translateY(16px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .modal__close {
+        position: absolute;
+        top: 1.25rem;
+        right: 1.25rem;
+        color: var(--text-muted);
+        padding: 0.35rem;
+        border-radius: 6px;
+        transition:
+            color 0.15s,
+            background 0.15s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .modal__close:hover {
+        color: var(--text);
+        background: var(--divider);
+    }
+
+    .modal__eyebrow {
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
+        color: var(--accent);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        margin-bottom: 0.5rem;
+    }
+
+    .modal__title {
+        font-family: var(--font-display);
+        font-size: var(--text-2xl);
+        font-weight: 400;
+        letter-spacing: -0.02em;
+        margin-bottom: 0.5rem;
+    }
+
+    .modal__sub {
+        font-family: var(--font-body);
+        font-size: var(--text-sm);
+        color: var(--text-muted);
+        margin-bottom: 2rem;
+        line-height: 1.55;
+    }
+
+    /* Fields */
+
+    .modal__form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+    }
+
+    .modal__field {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+    }
+
+    .modal__label {
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
+        color: var(--text-muted);
+        letter-spacing: normal;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+    }
+
+    .modal__required {
+        color: var(--accent);
+    }
+
+    .modal__input {
+        background: var(--bg);
+        border: 1px solid var(--divider);
+        border-radius: 8px;
+        padding: 0.7rem 1rem;
+        font-family: var(--font-mono);
+        font-size: var(--text-sm);
+        color: var(--text);
+        outline: none;
+        transition:
+            border-color 0.2s,
+            box-shadow 0.2s;
+        width: 100%;
+    }
+
+    .modal__input::placeholder {
+        color: var(--text-muted);
+        opacity: 0.6;
+    }
+
+    .modal__input:focus {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.12);
+    }
+
+    /* Select */
+
+    .modal__select {
+        appearance: none;
+        -webkit-appearance: none;
+        background: var(--bg)
+            url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 7L11 1' stroke='%238a8680' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
+            no-repeat right 1rem center;
+        border: 1px solid var(--divider);
+        border-radius: 8px;
+        padding: 0.7rem 2.5rem 0.7rem 1rem;
+        font-family: var(--font-mono);
+        font-size: var(--text-sm);
+        color: var(--text);
+        outline: none;
+        width: 100%;
+        cursor: pointer;
+        transition:
+            border-color 0.2s,
+            box-shadow 0.2s;
+    }
+
+    .modal__select:focus {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.12);
+    }
+
+    .modal__select option {
+        background: #1a1a1a;
+        color: var(--text);
+    }
+
+    .modal__select option[disabled] {
+        color: var(--text-muted);
+    }
+
+    /* Radio chips */
+
+    .modal__fieldset {
+        border: none;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .modal__chips {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        margin-top: 0.25rem;
+    }
+
+    .modal__chip {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.45rem 1rem;
+        border: 1px solid var(--divider);
+        border-radius: 999px;
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
+        color: var(--text-muted);
+        cursor: pointer;
+        transition:
+            border-color 0.15s,
+            background 0.15s,
+            color 0.15s;
+        position: relative;
+        user-select: none;
+    }
+
+    .modal__chip:hover {
+        border-color: var(--text-muted);
+        color: var(--text);
+    }
+
+    .modal__chip input[type="radio"] {
+        appearance: none;
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    .modal__chip:has(input[type="radio"]:checked) {
+        border-color: var(--accent);
+        background: rgba(var(--accent-rgb), 0.1);
+        color: var(--text);
+    }
+
+    .modal__chip:has(input[type="radio"]:focus-visible) {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+    }
+
+    /* Submit */
+
+    .modal__submit {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        background: var(--accent);
+        color: var(--bg);
+        font-family: var(--font-mono);
+        font-size: var(--text-sm);
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        padding: 0.85rem 1.5rem;
+        border-radius: 999px;
+        margin-top: 0.25rem;
+        transition:
+            background 0.2s,
+            transform 0.15s;
+        cursor: pointer;
+    }
+
+    .modal__submit:hover {
+        background: var(--accent-dim);
+        transform: translateY(-1px);
+    }
+
+    .modal__submit:active {
+        transform: translateY(0);
+    }
+
+    .modal__submit:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+    }
+
+    .modal__consent {
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
+        color: var(--text-muted);
+        text-align: center;
+        opacity: 0.7;
+    }
+
+    /* Success state */
+
+    .modal__success {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem;
+        padding: 2rem 0 1rem;
+        text-align: center;
+    }
+
+    .modal__success[hidden] {
+        display: none;
+    }
+
+    .modal__success-icon {
+        margin-bottom: 0.5rem;
+    }
+
+    .modal__success-title {
+        font-family: var(--font-display);
+        font-size: var(--text-xl);
+        font-weight: 400;
+    }
+
+    .modal__success-sub {
+        font-family: var(--font-mono);
+        font-size: var(--text-sm);
+        color: var(--text-muted);
+    }
+
+    /* Mobile */
+
+    @media (max-width: 520px) {
+        .modal {
+            padding: 2rem 1.5rem;
+            border-radius: 12px;
+        }
+
+        .modal__checks {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>

@@ -6,6 +6,7 @@
   --text-muted: #8a8680;
   --accent: #c8ff00;
   --accent-dim: #9fcc00;
+  --accent-rgb: 200, 255, 0;
   --font-display: 'DM Serif Display', Georgia, serif;
   --font-body: 'DM Sans', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
@@ -85,4 +86,12 @@ button {
   html {
     scroll-behavior: auto;
   }
+}
+
+.page-chat {
+  --accent:     #F49F1E;
+  --accent-dim: #D4840A;
+  --accent-rgb: 244, 159, 30;
+  --bg:         #171717;
+  --surface:    #1e1e1e;
 }

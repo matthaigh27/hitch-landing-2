@@ -1,37 +1,37 @@
 ---
-import AppMockup from "./AppMockup.astro";
+import ChatMockup from "./ChatMockup.astro";
 ---
 
-<section class="demo" id="demo">
-    <div class="demo__inner">
-        <h2 class="demo__heading">
-            A guide, written and published<br />
-            <em>while you were shipping.</em>
+<section class="chat-demo" id="chat-demo">
+    <div class="chat-demo__inner">
+        <h2 class="chat-demo__heading">
+            The conversation ends.<br />
+            <em>The context never does.</em>
         </h2>
 
-        <figure class="demo__figure">
-            <AppMockup />
+        <figure class="chat-demo__figure">
+            <ChatMockup />
 
-            <figcaption class="demo__caption">
-                Hitch dashboard - real-time guide generation from your latest
-                release
+            <figcaption class="chat-demo__caption">
+                Hitch - branching threads, AI-extracted actions, zero
+                notification noise
             </figcaption>
         </figure>
     </div>
 </section>
 
 <style>
-    .demo {
+    .chat-demo {
         padding: 6rem var(--gutter);
         border-top: 1px solid var(--divider);
     }
 
-    .demo__inner {
+    .chat-demo__inner {
         max-width: var(--max-w);
         margin: 0 auto;
     }
 
-    .demo__heading {
+    .chat-demo__heading {
         font-family: var(--font-display);
         font-size: var(--text-3xl);
         font-weight: 400;
@@ -41,18 +41,18 @@ import AppMockup from "./AppMockup.astro";
         max-width: 22ch;
     }
 
-    .demo__heading em {
+    .chat-demo__heading em {
         font-style: italic;
         color: var(--accent);
     }
 
-    .demo__figure {
+    .chat-demo__figure {
         border: 1px solid var(--divider);
         border-radius: 8px;
         overflow: hidden;
     }
 
-    .demo__caption {
+    .chat-demo__caption {
         padding: 1rem 1.25rem;
         border-top: 1px solid var(--divider);
         font-family: var(--font-mono);

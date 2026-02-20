@@ -1,0 +1,316 @@
+---
+const rows = [
+  { label: "Notifications/day",    slack: "200+",           hitch: "< 20 signals"    },
+  { label: "Decision tracking",    slack: "You do it",      hitch: "Automatic"       },
+  { label: "Finding old context",  slack: "Manual search",  hitch: "AI instant recall" },
+  { label: "Conversation shape",   slack: "Linear",         hitch: "Branching"       },
+  { label: "AI",                   slack: "Add-on",         hitch: "Native"          },
+];
+---
+
+<section class="chat-roi">
+  <div class="chat-roi__inner">
+
+    <header class="chat-roi__header">
+      <p class="chat-roi__eyebrow">Return on sanity</p>
+      <h2 class="chat-roi__heading">
+        The math is simple.<br />
+        <em>The relief is immediate.</em>
+      </h2>
+      <p class="chat-roi__sub">
+        The average knowledge worker receives
+        <strong>
+          <span class="chat-roi__counter" id="chat-roi-counter" data-target="200">0</span>&nbsp;notifications/week
+        </strong>
+        that don't require action. Hitch turns that number to near-zero.
+      </p>
+    </header>
+
+    <div class="chat-roi__grid">
+
+      <!-- Slack column -->
+      <div class="chat-roi__col chat-roi__col--slack">
+        <div class="chat-roi__col-header">
+          <span class="chat-roi__col-label">Slack</span>
+        </div>
+        {rows.map(row => (
+          <div class="chat-roi__row">
+            <span class="chat-roi__row-label">{row.label}</span>
+            <span class="chat-roi__val chat-roi__val--bad">{row.slack}</span>
+          </div>
+        ))}
+      </div>
+
+      <!-- VS divider -->
+      <div class="chat-roi__vs" aria-hidden="true">vs</div>
+
+      <!-- With Hitch column -->
+      <div class="chat-roi__col chat-roi__col--hitch">
+        <div class="chat-roi__col-header">
+          <span class="chat-roi__col-label">Hitch</span>
+          <span class="chat-roi__col-dot" aria-hidden="true"></span>
+        </div>
+        {rows.map(row => (
+          <div class="chat-roi__row">
+            <span class="chat-roi__row-label">{row.label}</span>
+            <span class="chat-roi__val chat-roi__val--good">{row.hitch}</span>
+          </div>
+        ))}
+      </div>
+
+    </div>
+
+    <p class="chat-roi__footnote">
+      * Based on industry data on average Slack usage for engineering teams
+    </p>
+
+  </div>
+</section>
+
+<script>
+  function easeOutQuad(t: number): number {
+    return t * (2 - t);
+  }
+
+  function animateCounter(el: HTMLElement, target: number, duration: number): void {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
+      el.textContent = target.toString();
+      return;
+    }
+
+    const start = performance.now();
+
+    function step(now: number): void {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = easeOutQuad(progress);
+      el.textContent = Math.round(eased * target).toString();
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      }
+    }
+
+    requestAnimationFrame(step);
+  }
+
+  const counterEl = document.getElementById('chat-roi-counter');
+  if (counterEl) {
+    const target = parseInt(counterEl.dataset.target ?? '0', 10);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            animateCounter(counterEl, target, 1800);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    observer.observe(counterEl);
+  }
+</script>
+
+<style>
+  .chat-roi {
+    padding: 7rem var(--gutter);
+    border-top: 1px solid var(--divider);
+    background: var(--surface);
+  }
+
+  .chat-roi__inner {
+    max-width: var(--max-w);
+    margin: 0 auto;
+  }
+
+  /* ---- Header ---- */
+
+  .chat-roi__header {
+    margin-bottom: 4rem;
+  }
+
+  .chat-roi__eyebrow {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .chat-roi__heading {
+    font-family: var(--font-display);
+    font-size: var(--text-3xl);
+    font-weight: 400;
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.25rem;
+  }
+
+  .chat-roi__heading em {
+    font-style: italic;
+    color: var(--text-muted);
+  }
+
+  .chat-roi__sub {
+    font-size: var(--text-lg);
+    color: var(--text-muted);
+    max-width: 52ch;
+    line-height: 1.65;
+  }
+
+  .chat-roi__sub strong {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .chat-roi__counter {
+    font-family: var(--font-mono);
+    font-size: var(--text-2xl);
+    font-weight: 700;
+    color: var(--accent);
+    display: inline-block;
+    min-width: 3ch;
+    text-align: right;
+  }
+
+  /* ---- Grid ---- */
+
+  .chat-roi__grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 0;
+    border: 1px solid var(--divider);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 2rem;
+  }
+
+  .chat-roi__col {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .chat-roi__col-header {
+    padding: 1.25rem 1.75rem;
+    border-bottom: 1px solid var(--divider);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .chat-roi__col-label {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .chat-roi__col--slack .chat-roi__col-label {
+    color: var(--text-muted);
+  }
+
+  .chat-roi__col--hitch .chat-roi__col-label {
+    color: var(--accent);
+  }
+
+  .chat-roi__col-dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .chat-roi__col-dot {
+      animation: none;
+    }
+  }
+
+  .chat-roi__row {
+    padding: 1.1rem 1.75rem;
+    border-bottom: 1px solid var(--divider);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .chat-roi__row:last-child {
+    border-bottom: none;
+  }
+
+  .chat-roi__row-label {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+
+  .chat-roi__val {
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .chat-roi__val--bad {
+    color: #ff5f57;
+  }
+
+  .chat-roi__val--good {
+    color: var(--accent);
+  }
+
+  /* ---- VS divider ---- */
+
+  .chat-roi__vs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    font-family: var(--font-mono);
+    font-size: var(--text-xl);
+    font-weight: 700;
+    color: var(--divider);
+    border-left: 1px solid var(--divider);
+    border-right: 1px solid var(--divider);
+    user-select: none;
+  }
+
+  /* ---- Footnote ---- */
+
+  .chat-roi__footnote {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    opacity: 0.6;
+  }
+
+  /* ---- Responsive ---- */
+
+  @media (max-width: 680px) {
+    .chat-roi__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .chat-roi__vs {
+      width: auto;
+      height: 48px;
+      border-left: none;
+      border-right: none;
+      border-top: 1px solid var(--divider);
+      border-bottom: 1px solid var(--divider);
+    }
+
+    .chat-roi__row {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.25rem;
+    }
+  }
+</style>

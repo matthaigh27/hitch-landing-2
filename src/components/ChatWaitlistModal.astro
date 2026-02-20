@@ -1,0 +1,686 @@
+---
+
+---
+
+<!-- Waitlist Modal -->
+<div
+    class="wl-overlay"
+    id="wl-overlay"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="wl-title"
+    aria-hidden="true"
+>
+    <div class="wl-box">
+        <button
+            class="wl-close"
+            id="wl-close"
+            aria-label="Close modal"
+            type="button"
+        >
+            <svg
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
+                aria-hidden="true"
+            >
+                <path
+                    d="M2 2l12 12M14 2L2 14"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"></path>
+            </svg>
+        </button>
+
+        <!-- Form state -->
+        <div class="wl-form-wrap" id="wl-form-wrap">
+            <p class="wl-eyebrow">Early access</p>
+            <h2 class="wl-title" id="wl-title">Join the Waitlist</h2>
+            <p class="wl-subtitle">
+                Tell us a bit about your situation so we can prioritise the
+                right people.
+            </p>
+
+            <form class="wl-form" id="wl-form" novalidate>
+                <!-- Email -->
+                <div class="wl-field">
+                    <label class="wl-label" for="wl-email">Work email</label>
+                    <input
+                        class="wl-input"
+                        type="email"
+                        id="wl-email"
+                        name="email"
+                        placeholder="you@company.com"
+                        autocomplete="email"
+                        required
+                    />
+                </div>
+
+                <!-- Frustration select -->
+                <div class="wl-field">
+                    <label class="wl-label" for="wl-frustration"
+                        >Biggest frustration with chat</label
+                    >
+                    <div class="modal-select-wrap">
+                        <select
+                            class="wl-select"
+                            id="wl-frustration"
+                            name="frustration"
+                            required
+                        >
+                            <option value="" disabled selected
+                                >Choose one…</option
+                            >
+                            <option value="notification-overload"
+                                >Notification overload</option
+                            >
+                            <option value="decisions-buried"
+                                >Decisions buried in threads</option
+                            >
+                            <option value="cant-find-context"
+                                >Can't find old context</option
+                            >
+                            <option value="threads-dont-match"
+                                >Threads don't match how work flows</option
+                            >
+                            <option value="no-action-tracking"
+                                >No action or commitment tracking</option
+                            >
+                            <option value="other">Other…</option>
+                        </select>
+                        <span class="modal-select-arrow" aria-hidden="true"
+                            >▾</span
+                        >
+                    </div>
+                    <!-- "Other" free-text field -->
+                    <div
+                        class="wl-other-wrap"
+                        id="wl-other-wrap"
+                        aria-hidden="true"
+                    >
+                        <input
+                            class="wl-input wl-other-input"
+                            type="text"
+                            id="wl-frustration-other"
+                            name="frustration_other"
+                            placeholder="Tell us more…"
+                            autocomplete="off"
+                        />
+                    </div>
+                </div>
+
+                <!-- Purchase intent (radio chips) -->
+                <div class="wl-field" id="wl-intent-field">
+                    <fieldset class="wl-fieldset">
+                        <legend class="wl-label"
+                            >To the best of your current knowledge, would your
+                            team purchase a Slack alternative if it solved the
+                            above?</legend
+                        >
+                        <div class="wl-chips" role="group">
+                            <label class="wl-chip">
+                                <input
+                                    type="radio"
+                                    name="intent"
+                                    value="yes"
+                                    required
+                                />
+                                Yes, definitely
+                            </label>
+                            <label class="wl-chip">
+                                <input
+                                    type="radio"
+                                    name="intent"
+                                    value="probably"
+                                />
+                                Probably
+                            </label>
+                            <label class="wl-chip">
+                                <input
+                                    type="radio"
+                                    name="intent"
+                                    value="not-sure"
+                                />
+                                Not sure
+                            </label>
+                            <label class="wl-chip">
+                                <input
+                                    type="radio"
+                                    name="intent"
+                                    value="probably-not"
+                                />
+                                Probably not
+                            </label>
+                        </div>
+                        <p
+                            class="wl-radio-error"
+                            id="wl-radio-error"
+                            role="alert"
+                            aria-live="polite"
+                        >
+                            Please select an option.
+                        </p>
+                    </fieldset>
+                </div>
+
+                <button class="wl-submit" type="submit">Join →</button>
+
+                <!-- <p class="wl-consent">
+                    No spam, ever. Unsubscribe in one click.
+                </p> -->
+            </form>
+        </div>
+
+        <!-- Success state -->
+        <div
+            class="wl-success"
+            id="wl-success"
+            aria-live="polite"
+            aria-atomic="true"
+            hidden
+        >
+            <div class="wl-success__icon" aria-hidden="true">✓</div>
+            <h2 class="wl-success__heading">You're on the list.</h2>
+            <p class="wl-success__body">
+                We'll be in touch soon. Thanks for sharing your thoughts - it
+                genuinely helps us build the right thing.
+            </p>
+        </div>
+    </div>
+</div>
+
+<script>
+    import { actions } from 'astro:actions';
+
+    const overlay = document.getElementById("wl-overlay")!;
+    const closeBtn = document.getElementById("wl-close")!;
+    const form = document.getElementById("wl-form") as HTMLFormElement;
+    const formWrap = document.getElementById("wl-form-wrap")!;
+    const successEl = document.getElementById("wl-success")!;
+    const emailInput = document.getElementById("wl-email") as HTMLInputElement;
+    const selectEl = document.getElementById("wl-frustration") as HTMLSelectElement;
+    const otherWrap = document.getElementById("wl-other-wrap")!;
+    const otherInput = document.getElementById("wl-frustration-other") as HTMLInputElement;
+    const radioError = document.getElementById("wl-radio-error")!;
+
+    // ── Open / Close ──────────────────────────────────────────────
+
+    function openModal() {
+        overlay.classList.add("is-open");
+        overlay.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+        requestAnimationFrame(() => emailInput.focus());
+    }
+
+    function closeModal() {
+        overlay.classList.remove("is-open");
+        overlay.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = "";
+    }
+
+    document.addEventListener("click", (e) => {
+        if ((e.target as Element).closest("[data-open-waitlist]")) openModal();
+    });
+
+    closeBtn.addEventListener("click", closeModal);
+
+    overlay.addEventListener("click", (e) => {
+        if (e.target === overlay) closeModal();
+    });
+
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && overlay.classList.contains("is-open")) closeModal();
+    });
+
+    // ── "Other…" reveal ──────────────────────────────────────────
+
+    selectEl.addEventListener("change", () => {
+        const isOther = selectEl.value === "other";
+        otherWrap.classList.toggle("is-visible", isOther);
+        otherWrap.setAttribute("aria-hidden", String(!isOther));
+        if (isOther) {
+            otherInput.setAttribute("required", "");
+            otherInput.focus();
+        } else {
+            otherInput.removeAttribute("required");
+            otherInput.value = "";
+        }
+    });
+
+    // ── Submit ────────────────────────────────────────────────────
+
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const checkedRadio = form.querySelector<HTMLInputElement>('input[name="intent"]:checked');
+        if (!checkedRadio) {
+            radioError.classList.add("is-visible");
+            form.querySelector<HTMLElement>(".wl-chips")?.focus();
+            return;
+        }
+        radioError.classList.remove("is-visible");
+
+        if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
+        }
+
+        const submitBtn = form.querySelector<HTMLButtonElement>(".wl-submit");
+        if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.textContent = "Submitting…";
+        }
+
+        const frustration_other = selectEl.value === "other" ? otherInput.value : undefined;
+
+        const { error } = await actions.submitChatWaitlist({
+            email: emailInput.value,
+            frustration: selectEl.value || undefined,
+            frustration_other,
+            intent: checkedRadio.value,
+        });
+
+        if (error) {
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.textContent = "Join →";
+            }
+            return;
+        }
+
+        showSuccess();
+    });
+
+    function showSuccess() {
+        formWrap.hidden = true;
+        successEl.hidden = false;
+        successEl.classList.add("is-visible");
+        if (emailInput.value) {
+            (window as any).rdt?.("init", "a2_ijiwg4haitrc", { email: emailInput.value });
+            (window as any).rdt?.("track", "Lead");
+        }
+    }
+</script>
+
+<style>
+    /* ── Overlay ─────────────────────────────────────────────────── */
+
+    .wl-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.75);
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1.5rem;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.25s;
+    }
+
+    .wl-overlay.is-open {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    /* ── Modal box ───────────────────────────────────────────────── */
+
+    .wl-box {
+        background: var(--surface);
+        border: 1px solid var(--divider);
+        border-radius: 12px;
+        max-width: 520px;
+        width: calc(100% - 1rem);
+        padding: 2.5rem 2rem;
+        position: relative;
+        transform: translateY(20px);
+        transition: transform 0.3s var(--ease-out);
+        max-height: calc(100dvh - 3rem);
+        overflow-y: auto;
+    }
+
+    .wl-overlay.is-open .wl-box {
+        transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .wl-overlay,
+        .wl-box {
+            transition: opacity 0.25s;
+        }
+        .wl-box {
+            transform: none !important;
+        }
+    }
+
+    /* ── Close button ────────────────────────────────────────────── */
+
+    .wl-close {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: none;
+        border: 1px solid var(--divider);
+        border-radius: 6px;
+        color: var(--text-muted);
+        cursor: pointer;
+        padding: 0.4rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition:
+            border-color 0.15s,
+            color 0.15s;
+    }
+
+    .wl-close:hover {
+        border-color: var(--text-muted);
+        color: var(--text);
+    }
+
+    /* ── Header ──────────────────────────────────────────────────── */
+
+    .wl-eyebrow {
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
+        color: var(--accent);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        margin-bottom: 0.5rem;
+    }
+
+    .wl-title {
+        font-family: var(--font-display);
+        font-size: clamp(1.5rem, 4vw, 2rem);
+        font-weight: 400;
+        color: var(--text);
+        letter-spacing: -0.02em;
+        margin-bottom: 0.5rem;
+    }
+
+    .wl-subtitle {
+        font-size: var(--text-sm);
+        color: var(--text-muted);
+        margin-bottom: 2rem;
+        line-height: 1.6;
+    }
+
+    /* ── Form fields ─────────────────────────────────────────────── */
+
+    .wl-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+    }
+
+    .wl-field {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .wl-label {
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
+        color: var(--text-muted);
+        letter-spacing: normal;
+        text-transform: none;
+    }
+
+    .wl-input {
+        background: var(--bg);
+        border: 1px solid var(--divider);
+        border-radius: 8px;
+        padding: 0.75rem 1rem;
+        font-family: var(--font-mono);
+        font-size: var(--text-sm);
+        color: var(--text);
+        outline: none;
+        transition:
+            border-color 0.2s,
+            box-shadow 0.2s;
+        width: 100%;
+    }
+
+    .wl-input::placeholder {
+        color: var(--text-muted);
+        opacity: 0.6;
+    }
+
+    .wl-input:focus {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.12);
+    }
+
+    /* ── Select ──────────────────────────────────────────────────── */
+
+    .modal-select-wrap {
+        position: relative;
+    }
+
+    .wl-select {
+        appearance: none;
+        background: var(--surface);
+        border: 1px solid var(--divider);
+        border-radius: 8px;
+        padding: 0.75rem 2.5rem 0.75rem 1rem;
+        font-family: var(--font-mono);
+        font-size: var(--text-sm);
+        color: var(--text);
+        outline: none;
+        width: 100%;
+        cursor: pointer;
+        transition:
+            border-color 0.2s,
+            box-shadow 0.2s;
+    }
+
+    .wl-select:focus {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(var(--accent-rgb), 0.12);
+    }
+
+    .modal-select-arrow {
+        position: absolute;
+        right: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-muted);
+        pointer-events: none;
+        font-size: 0.85em;
+    }
+
+    /* ── "Other" free-text field ─────────────────────────────────── */
+
+    .wl-other-wrap {
+        overflow: hidden;
+        max-height: 0;
+        opacity: 0;
+        transition:
+            max-height 0.25s var(--ease-out),
+            opacity 0.25s;
+    }
+
+    .wl-other-wrap.is-visible {
+        max-height: 80px;
+        opacity: 1;
+    }
+
+    .wl-other-input {
+        margin-top: 0.5rem;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .wl-other-wrap {
+            transition: opacity 0.25s;
+        }
+    }
+
+    /* ── Radio chips ─────────────────────────────────────────────── */
+
+    .wl-fieldset {
+        border: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .wl-chips {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        margin-top: 1rem;
+    }
+
+    .wl-chip {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.5rem 1rem;
+        border: 1px solid var(--divider);
+        border-radius: 999px;
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
+        color: var(--text-muted);
+        cursor: pointer;
+        transition:
+            border-color 0.15s,
+            background 0.15s,
+            color 0.15s;
+        position: relative;
+        user-select: none;
+    }
+
+    .wl-chip:hover {
+        border-color: var(--text-muted);
+        color: var(--text);
+    }
+
+    /* Hide native radio */
+    .wl-chip input[type="radio"] {
+        appearance: none;
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    /* Checked state */
+    .wl-chip:has(input[type="radio"]:checked) {
+        border-color: var(--accent);
+        background: rgba(var(--accent-rgb), 0.1);
+        color: var(--text);
+    }
+
+    /* Focus-visible ring for keyboard nav */
+    .wl-chip:has(input[type="radio"]:focus-visible) {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+    }
+
+    /* ── Radio error ─────────────────────────────────────────────── */
+
+    .wl-radio-error {
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
+        color: #ff5f57;
+        display: none;
+        margin-top: 0.25rem;
+    }
+
+    .wl-radio-error.is-visible {
+        display: block;
+    }
+
+    /* ── Submit ──────────────────────────────────────────────────── */
+
+    .wl-submit {
+        width: 100%;
+        background: var(--accent);
+        color: var(--bg);
+        font-family: var(--font-mono);
+        font-size: var(--text-sm);
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        padding: 0.9rem 1.75rem;
+        border-radius: 999px;
+        border: none;
+        cursor: pointer;
+        transition:
+            background 0.2s,
+            transform 0.15s;
+        margin-top: 0.25rem;
+    }
+
+    .wl-submit:hover {
+        background: var(--accent-dim);
+        transform: translateY(-1px);
+    }
+
+    .wl-submit:active {
+        transform: translateY(0);
+    }
+
+    /* ── Consent ─────────────────────────────────────────────────── */
+
+    .wl-consent {
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
+        color: var(--text-muted);
+        text-align: center;
+    }
+
+    /* ── Success ─────────────────────────────────────────────────── */
+
+    .wl-success {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 2rem 0;
+        gap: 1rem;
+        opacity: 0;
+        transition: opacity 0.4s var(--ease-out);
+    }
+
+    .wl-success.is-visible {
+        opacity: 1;
+    }
+
+    .wl-success__icon {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: rgba(var(--accent-rgb), 0.12);
+        border: 1px solid rgba(var(--accent-rgb), 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        color: var(--accent);
+    }
+
+    .wl-success__heading {
+        font-family: var(--font-display);
+        font-size: 1.75rem;
+        font-weight: 400;
+        color: var(--text);
+        letter-spacing: -0.02em;
+    }
+
+    .wl-success__body {
+        font-size: var(--text-sm);
+        color: var(--text-muted);
+        max-width: 36ch;
+        line-height: 1.7;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .wl-success {
+            transition: opacity 0.25s;
+        }
+    }
+</style>

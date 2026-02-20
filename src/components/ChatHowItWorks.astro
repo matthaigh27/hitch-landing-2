@@ -2,59 +2,64 @@
 const steps = [
     {
         number: "01",
-        icon: "⌥",
-        title: "One-time setup",
+        icon: "⌀",
+        title: "Branch any message",
         description:
-            "Give Hitch a URL or a codebase - we do the rest. Works with any team, no custom configuration, no new process to learn.",
-        code: "< 5 min setup",
+            "Fork a conversation into its own space without derailing what's happening. The original thread stays clean; the branch has its own focus.",
+        code: '> branch "test plan"',
     },
     {
         number: "02",
-        icon: "⚡",
-        title: "Every release captured",
+        icon: "⬡",
+        title: "AI captures every action",
         description:
-            "On every release, Hitch's agents use your product. No forms to fill out, no tickets, no one interrupted mid-sprint.",
-        code: "v2.3.9 → v2.4.1",
+            "Every decision, task, and commitment in your conversations is automatically extracted and tracked. Not something you remember to summarize.",
+        code: "✓ ship by Thursday",
     },
     {
         number: "03",
-        icon: "❏",
-        title: "Guides published",
+        icon: "◎",
+        title: "Signals, not notifications",
         description:
-            "Complete, accurate guides appears in your docs site automatically. Versioned, searchable, and ready before your users notice the new feature.",
-        code: "docs.yourdomain.com",
+            "You're only interrupted when something genuinely needs you - not when someone reacts to a meme, or a thread you were cc'd on moves.",
+        code: "⬡ 3 signals · 0 noise",
     },
 ];
 ---
 
-<section class="hiw" id="how-it-works">
-    <div class="hiw__inner">
-        <header class="hiw__header">
-            <p class="hiw__eyebrow">How it works</p>
-            <h2 class="hiw__heading">
-                Three steps.<br /><em>Zero manual effort.</em>
+<section class="chat-hiw" id="chat-how-it-works">
+    <div class="chat-hiw__inner">
+        <header class="chat-hiw__header">
+            <p class="chat-hiw__eyebrow">How it works</p>
+            <h2 class="chat-hiw__heading">
+                Three things chat should have done<br /><em>from the start.</em>
             </h2>
         </header>
 
-        <div class="hiw__grid" id="hiw-grid">
+        <div class="chat-hiw__grid" id="chat-hiw-grid">
             {
                 steps.map((step, i) => (
                     <>
-                        <div class="hiw__card">
-                            <div class="hiw__card-number" aria-hidden="true">
+                        <div class="chat-hiw__card">
+                            <div
+                                class="chat-hiw__card-number"
+                                aria-hidden="true"
+                            >
                                 {step.number}
                             </div>
-                            <div class="hiw__card-icon" aria-hidden="true">
+                            <div class="chat-hiw__card-icon" aria-hidden="true">
                                 {step.icon}
                             </div>
-                            <h3 class="hiw__card-title">{step.title}</h3>
-                            <p class="hiw__card-desc">{step.description}</p>
-                            <code class="hiw__card-code">{step.code}</code>
+                            <h3 class="chat-hiw__card-title">{step.title}</h3>
+                            <p class="chat-hiw__card-desc">
+                                {step.description}
+                            </p>
+                            <code class="chat-hiw__card-code">{step.code}</code>
                         </div>
                         {i < steps.length - 1 && (
-                            <div class="hiw__connector" aria-hidden="true">
-                                <span class="hiw__connector-line" />
-                                <span class="hiw__connector-arrow">›</span>
+                            <div class="chat-hiw__connector" aria-hidden="true">
+                                <span class="chat-hiw__connector-line" />
+                                <span class="chat-hiw__connector-arrow">›</span>
                             </div>
                         )}
                     </>
@@ -65,7 +70,7 @@ const steps = [
 </section>
 
 <script>
-    const section = document.getElementById("hiw-grid");
+    const section = document.getElementById("chat-hiw-grid");
 
     const observer = new IntersectionObserver(
         (entries) => {
@@ -83,21 +88,21 @@ const steps = [
 </script>
 
 <style>
-    .hiw {
+    .chat-hiw {
         padding: 7rem var(--gutter);
         border-top: 1px solid var(--divider);
     }
 
-    .hiw__inner {
+    .chat-hiw__inner {
         max-width: var(--max-w);
         margin: 0 auto;
     }
 
-    .hiw__header {
+    .chat-hiw__header {
         margin-bottom: 4rem;
     }
 
-    .hiw__eyebrow {
+    .chat-hiw__eyebrow {
         font-family: var(--font-mono);
         font-size: var(--text-xs);
         color: var(--text-muted);
@@ -106,7 +111,7 @@ const steps = [
         margin-bottom: 1rem;
     }
 
-    .hiw__heading {
+    .chat-hiw__heading {
         font-family: var(--font-display);
         font-size: var(--text-3xl);
         font-weight: 400;
@@ -114,14 +119,14 @@ const steps = [
         letter-spacing: -0.02em;
     }
 
-    .hiw__heading em {
+    .chat-hiw__heading em {
         font-style: italic;
         color: var(--accent);
     }
 
     /* ---- Grid ---- */
 
-    .hiw__grid {
+    .chat-hiw__grid {
         display: grid;
         grid-template-columns: 1fr auto 1fr auto 1fr;
         gap: 0;
@@ -130,7 +135,7 @@ const steps = [
 
     /* ---- Card ---- */
 
-    .hiw__card {
+    .chat-hiw__card {
         background: var(--surface);
         border: 1px solid var(--divider);
         border-radius: 8px;
@@ -140,11 +145,11 @@ const steps = [
         transition: border-color 0.3s var(--ease-out);
     }
 
-    .hiw__grid.is-active .hiw__card {
-        border-color: rgba(200, 255, 0, 0.15);
+    .chat-hiw__grid.is-active .chat-hiw__card {
+        border-color: rgba(var(--accent-rgb), 0.15);
     }
 
-    .hiw__card-number {
+    .chat-hiw__card-number {
         font-family: var(--font-mono);
         font-size: var(--text-stat);
         font-weight: 700;
@@ -155,13 +160,13 @@ const steps = [
         letter-spacing: -0.04em;
     }
 
-    .hiw__card-icon {
+    .chat-hiw__card-icon {
         font-size: var(--text-2xl);
         margin-bottom: 1rem;
         line-height: 1;
     }
 
-    .hiw__card-title {
+    .chat-hiw__card-title {
         font-family: var(--font-display);
         font-size: var(--text-xl);
         font-weight: 400;
@@ -169,27 +174,27 @@ const steps = [
         letter-spacing: -0.01em;
     }
 
-    .hiw__card-desc {
+    .chat-hiw__card-desc {
         font-size: var(--text-sm);
         color: var(--text-muted);
         line-height: 1.7;
         margin-bottom: 1.5rem;
     }
 
-    .hiw__card-code {
+    .chat-hiw__card-code {
         display: inline-block;
         font-family: var(--font-mono);
         font-size: var(--text-xs);
         color: var(--accent);
-        background: rgba(200, 255, 0, 0.08);
+        background: rgba(var(--accent-rgb), 0.08);
         padding: 0.25rem 0.6rem;
         border-radius: 4px;
-        border: 1px solid rgba(200, 255, 0, 0.2);
+        border: 1px solid rgba(var(--accent-rgb), 0.2);
     }
 
     /* ---- Connector ---- */
 
-    .hiw__connector {
+    .chat-hiw__connector {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -197,12 +202,12 @@ const steps = [
         padding: 0 1.5rem;
         padding-top: calc(
             2.25rem + var(--text-stat) + 1.25rem + var(--text-2xl) + 1rem
-        ); /* align with card icon area */
+        );
         gap: 0.25rem;
         min-width: 60px;
     }
 
-    .hiw__connector-line {
+    .chat-hiw__connector-line {
         display: block;
         height: 1px;
         width: 0;
@@ -210,22 +215,22 @@ const steps = [
         transition: width 0.6s var(--ease-out) 0.3s;
     }
 
-    .hiw__grid.is-active .hiw__connector-line {
+    .chat-hiw__grid.is-active .chat-hiw__connector-line {
         width: 100%;
     }
 
     @media (prefers-reduced-motion: reduce) {
-        .hiw__connector-line {
+        .chat-hiw__connector-line {
             width: 100%;
             transition: none;
         }
 
-        .hiw__grid.is-active .hiw__card {
-            border-color: rgba(200, 255, 0, 0.15);
+        .chat-hiw__grid.is-active .chat-hiw__card {
+            border-color: rgba(var(--accent-rgb), 0.15);
         }
     }
 
-    .hiw__connector-arrow {
+    .chat-hiw__connector-arrow {
         font-size: 1.25rem;
         color: var(--accent);
         line-height: 1;
@@ -235,28 +240,28 @@ const steps = [
     /* ---- Responsive ---- */
 
     @media (max-width: 900px) {
-        .hiw__grid {
+        .chat-hiw__grid {
             grid-template-columns: 1fr;
         }
 
-        .hiw__connector {
+        .chat-hiw__connector {
             flex-direction: row;
             padding: 0.5rem 2rem;
             min-width: auto;
             justify-content: flex-start;
         }
 
-        .hiw__connector-line {
+        .chat-hiw__connector-line {
             flex: 1;
             height: 1px;
             width: auto;
         }
 
-        .hiw__grid.is-active .hiw__connector-line {
+        .chat-hiw__grid.is-active .chat-hiw__connector-line {
             width: auto;
         }
 
-        .hiw__connector-arrow {
+        .chat-hiw__connector-arrow {
             transform: rotate(90deg);
         }
     }

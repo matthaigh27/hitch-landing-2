@@ -1,35 +1,62 @@
 ---
-import '../styles/global.css';
+import "../styles/global.css";
+import Analytics from "@vercel/analytics/astro";
 
 interface Props {
-  title?: string;
-  description?: string;
+    title?: string;
+    description?: string;
+    bodyClass?: string;
 }
 
 const {
-  title = "Hitch — Documentation That Deploys Itself",
-  description = "Hitch auto-generates documentation from your CI/CD releases. Stop writing docs. Start shipping them.",
+    title = "Hitch | Documentation That Deploys Itself",
+    description = "Hitch auto-generates documentation from your CI/CD releases. Stop writing docs. Start shipping them.",
+    bodyClass,
 } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
-    <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
-    <meta name="description" content={description} />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=JetBrains+Mono:wght@400;500;700&display=swap"
-      rel="stylesheet"
-    />
-  </head>
-  <body>
-    <slot />
-  </body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="icon" href="/favicon.ico" />
+        <meta name="generator" content={Astro.generator} />
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=JetBrains+Mono:wght@400;500;700&display=swap"
+            rel="stylesheet"
+        />
+        <Analytics />
+        <!-- Reddit Pixel -->
+        <script>
+            !(function (w, d) {
+                if (!w.rdt) {
+                    var p = (w.rdt = function () {
+                        p.sendEvent
+                            ? p.sendEvent.apply(p, arguments)
+                            : p.callQueue.push(arguments);
+                    });
+                    p.callQueue = [];
+                    var t = d.createElement("script");
+                    ((t.src =
+                        "https://www.redditstatic.com/ads/pixel.js?pixel_id=a2_ijiwg4haitrc"),
+                        (t.async = !0));
+                    var s = d.getElementsByTagName("script")[0];
+                    s.parentNode.insertBefore(t, s);
+                }
+            })(window, document);
+            rdt("init", "a2_ijiwg4haitrc");
+            rdt("track", "PageVisit");
+        </script>
+        <!-- DO NOT MODIFY UNLESS TO REPLACE A USER IDENTIFIER -->
+        <!-- End Reddit Pixel -->
+    </head>
+    <body class={bodyClass}>
+        <slot />
+    </body>
 </html>
