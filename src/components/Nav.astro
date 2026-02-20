@@ -4,12 +4,14 @@ import Logo from "./Logo.astro";
 
 <nav class="nav" id="nav">
     <div class="nav__inner">
-        <a href="/" class="nav__logo" aria-label="Hitch home">
+        <span class="nav__logo" aria-label="Hitch home">
             <Logo />
             <span class="nav__logo-text">hitch </span>
             <!-- <span class="nav__dot" aria-hidden="true"></span> -->
-        </a>
-        <button class="nav__cta" type="button" data-open-waitlist>Join the Waitlist</button>
+        </span>
+        <button class="nav__cta" type="button" data-open-waitlist
+            >Join the Waitlist</button
+        >
     </div>
 </nav>
 
@@ -32,6 +34,7 @@ import Logo from "./Logo.astro";
     @font-face {
         font-family: "Brand Font";
         src: url("../assets/brand-font.otf") format("opentype");
+        font-display: block;
     }
 
     .nav {

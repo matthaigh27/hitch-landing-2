@@ -175,6 +175,10 @@
         requestAnimationFrame(() => {
             (modal.querySelector("input") as HTMLInputElement | null)?.focus();
         });
+        (window as any).rdt?.("track", "Custom", {
+            customEventName: "Open Waitlist",
+            conversionId: crypto.randomUUID(),
+        });
     }
 
     function closeModal() {
@@ -348,6 +352,10 @@
         display: flex;
         flex-direction: column;
         gap: 1.25rem;
+    }
+
+    .modal__form[hidden] {
+        display: none;
     }
 
     .modal__field {
