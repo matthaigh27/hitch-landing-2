@@ -239,7 +239,10 @@
         const email = form.querySelector<HTMLInputElement>("#modal-email")?.value;
         if (email) {
             (window as any).rdt?.("init", "a2_ijiwg4haitrc", { email });
-            (window as any).rdt?.("track", "Lead");
+            (window as any).rdt?.("track", "Custom", {
+                customEventName: "Join the Waitlist",
+                conversionId: crypto.randomUUID(),
+            });
         }
     }
 </script>

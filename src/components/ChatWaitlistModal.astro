@@ -211,6 +211,10 @@
         overlay.setAttribute("aria-hidden", "false");
         document.body.style.overflow = "hidden";
         requestAnimationFrame(() => emailInput.focus());
+        (window as any).rdt?.("track", "Custom", {
+            customEventName: "Open Waitlist",
+            conversionId: crypto.randomUUID(),
+        });
     }
 
     function closeModal() {
@@ -298,7 +302,10 @@
         successEl.classList.add("is-visible");
         if (emailInput.value) {
             (window as any).rdt?.("init", "a2_ijiwg4haitrc", { email: emailInput.value });
-            (window as any).rdt?.("track", "Lead");
+            (window as any).rdt?.("track", "Custom", {
+                customEventName: "Join the Waitlist",
+                conversionId: crypto.randomUUID(),
+            });
         }
     }
 </script>
