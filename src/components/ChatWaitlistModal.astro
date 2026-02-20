@@ -178,7 +178,6 @@
             id="wl-success"
             aria-live="polite"
             aria-atomic="true"
-            hidden
         >
             <div class="wl-success__icon" aria-hidden="true">✓</div>
             <h2 class="wl-success__heading">You're on the list.</h2>
@@ -306,14 +305,12 @@
 
     function showSuccess() {
         formWrap.hidden = true;
-        successEl.hidden = false;
         successEl.classList.add("is-visible");
         if (emailInput.value) {
             (window as any).rdt?.("init", "a2_ijiwg4haitrc", {
                 email: emailInput.value,
             });
-            (window as any).rdt?.("track", "Custom", {
-                customEventName: "Join the Waitlist",
+            (window as any).rdt?.("track", "Lead", {
                 conversionId: crypto.randomUUID(),
             });
         }
@@ -653,18 +650,16 @@
     /* ── Success ─────────────────────────────────────────────────── */
 
     .wl-success {
-        display: flex;
+        display: none;
         flex-direction: column;
         align-items: center;
         text-align: center;
         padding: 2rem 0;
         gap: 1rem;
-        opacity: 0;
-        transition: opacity 0.4s var(--ease-out);
     }
 
     .wl-success.is-visible {
-        opacity: 1;
+        display: flex;
     }
 
     .wl-success__icon {
